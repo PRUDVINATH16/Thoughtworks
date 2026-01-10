@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DATA T0 TABLE</title>
+
+  <style>
+
+    table {
+      margin: 30px;
+      padding: 30px;
+    }
+
+    table,
+    th,
+    td {
+      border: 2px solid black;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px 10px;
+      text-align: center;
+      width: 100px;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    th {
+      background-color: rgb(2, 80, 2);
+      color: white;
+      font-weight: 1000;
+    }
+
+    td {
+      font-weight: 450;
+    }
+
+    tr {
+      background-color: rgba(59, 248, 59, 0.731);
+    }
+    
+    tr:nth-child(odd) {
+      background-color: rgba(130, 245, 130, 0.776);
+    }
+    
+  </style>
+</head>
+
+<body>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>City</th>
+        <th>Salary</th>
+      </tr>
+    </thead>
+    <tbody class="tb1">
+
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>City</th>
+        <th>Salary</th>
+      </tr>
+    </thead>
+    <tbody class="tb2">
+
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>City</th>
+        <th>Salary</th>
+      </tr>
+    </thead>
+    <tbody class="tb3">
+
+    </tbody>
+  </table>
+
+
+
+  <script>
+    var peoples = [
+
+      {
+
+        "firstname": "praveen",
+
+        "lastname": "gubbala",
+
+        "age": 36,
+
+        "gender": "male",
+
+        "city": "hyd",
+
+        "salary": 10000
+
+      },
+
+      {
+
+        "firstname": "srikanth",
+
+        "lastname": "gubbala",
+
+        "age": 32,
+
+        "gender": "male",
+
+        "city": "bengaluru",
+
+        "salary": 20000
+
+      },
+
+      {
+
+        "firstname": "pradeep",
+
+        "lastname": "reddy",
+
+        "age": 21,
+
+        "gender": "male",
+
+        "city": "hyd",
+
+        "salary": 30000
+
+      },
+
+      {
+
+        "firstname": "mounika",
+
+        "lastname": "mudiraj",
+
+        "age": 20,
+
+        "gender": "female",
+
+        "city": "nalgonda",
+
+        "salary": 30000
+
+      },
+
+      {
+
+        "firstname": "nikhil",
+
+        "lastname": "m",
+
+        "age": 22,
+
+        "gender": "male",
+
+        "city": "guntur",
+
+        "salary": 2000
+
+      },
+
+      {
+
+        "firstname": "riya",
+
+        "lastname": "bhadouria",
+
+        "age": 14,
+
+        "gender": "female",
+
+        "city": "indore",
+
+        "salary": 40000
+
+      }
+    ];
+
+    let girlsHTML = '';
+    let boysHTML = '';
+    peoples.forEach((people) => {
+
+      let peopleHTML = '';
+      peopleHTML = `
+        <tr>
+          <td>${people.firstname}</td>
+          <td>${people.lastname}</td>
+          <td>${people.age}</td>
+          <td>${people.gender}</td>
+          <td>${people.city}</td>
+          <td>${people.salary}</td>
+        </tr>
+      `;
+      if (people.gender == "male") {
+        boysHTML += peopleHTML;
+      } else {
+        girlsHTML += peopleHTML;
+      }
+    });
+
+    document.querySelector('.tb1').innerHTML = boysHTML + girlsHTML;
+    document.querySelector('.tb2').innerHTML = boysHTML;
+    document.querySelector('.tb3').innerHTML = girlsHTML;
+  </script>
+</body>
+
+</html>

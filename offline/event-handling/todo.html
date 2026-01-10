@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO</title>
+
+  <style>
+
+    .todo-items {
+      width: 200px;
+    }
+
+    .items {
+      display: flex;
+      height: 30px;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h2>Todo App</h2>
+  <input type="text" placeholder="add your work...">
+  <button onclick="addItem()">+ Add</button>
+  <div class="todo-items">
+    
+  </div>
+
+  <script>
+
+    let todo_items = ['lfsda', 'sdljlds', 'asdl'];
+
+    function renderItems() {
+
+      document.querySelector('.todo-items').innerHTML = '';
+
+      todo_items.forEach((item, index, items) => {
+        /* itemsHTML += `
+          <div class="item">
+            <span>${item}</span>
+            <button onclick='${() => {items.splice(index, 1); renderItems();}}'>Delete</button>
+          </div>
+        `; */
+
+        let div = document.createElement('div');
+        let span = document.createElement('p');
+        let button = document.createElement('button');
+
+        div.classList.add('items')
+        
+        span.textContent = item;
+        span.classList.add('span');
+
+        button.textContent = 'Delete';
+        button.onclick = () => {items.splice(index, 1); renderItems();};
+
+        div.appendChild(span);
+        div.appendChild(button);
+
+        document.querySelector('.todo-items').appendChild(div);
+      });
+
+      if (todo_items.length == 0) {
+        document.querySelector('.todo-items').textContent = "No works are listed!!";
+      }
+
+    }
+
+    function addItem() {
+
+      let value = document.querySelector('input').value;
+
+      if(value == '') return;
+
+      todo_items.push(value);
+      document.querySelector('input').value = '';
+      
+      renderItems();
+    }
+
+    renderItems();
+  </script>
+
+</body>
+
+</html>

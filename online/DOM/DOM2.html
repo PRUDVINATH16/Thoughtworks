@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    html {
+      height: 97%;
+      overflow: auto;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      overflow: auto;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      color: black;
+      overflow: auto;
+    }
+
+    th {
+      font-weight: 1000;
+      background-color: rgb(2, 54, 27);
+      color: white;
+    }
+
+    th:hover {
+      cursor: pointer;
+    }
+
+    tr {
+      background-color: rgba(7, 194, 7, 0.422);
+    }
+
+    tr:nth-child(odd) {
+      background-color: rgba(14, 188, 14, 0.582);
+    }
+    
+    tr:hover {
+      background-color: rgba(0, 128, 0, 0.731);
+    }
+
+    th,
+    td {
+      padding: 6px;
+      text-align: center;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+  </style>
+
+</head>
+
+<body>
+  <table></table>
+  <script>
+
+
+    let heriones = [
+      {
+        "name": "Pooja Hegde",
+        "firstMovie": "Oka Laila Kosam (2014)",
+        "birthPlace": "Mumbai, Maharashtra, India"
+      },
+      {
+        "name": "Anushka Shetty",
+        "firstMovie": "Super (2005)",
+        "birthPlace": "Mangaluru, Karnataka, India"
+      },
+      {
+        "name": "Kajal Aggarwal",
+        "firstMovie": "Lakshmi Kalyanam (2007)",
+        "birthPlace": "Mumbai, Maharashtra, India"
+      },
+      {
+        "name": "Samantha Ruth Prabhu",
+        "firstMovie": "Ye Maaya Chesave (2010)",
+        "birthPlace": "Chennai, Tamil Nadu, India"
+      },
+      {
+        "name": "Rashmika Mandanna",
+        "firstMovie": "Chalo (2018)",
+        "birthPlace": "Virajpet, Karnataka, India"
+      },
+      {
+        "name": "Tamannaah Bhatia",
+        "firstMovie": "Sri (2005)",
+        "birthPlace": "Mumbai, Maharashtra, India"
+      },
+      {
+        "name": "Shruti Haasan",
+        "firstMovie": "Anaganaga O Dheerudu (2011)",
+        "birthPlace": "Chennai, Tamil Nadu, India"
+      },
+      {
+        "name": "Rakul Preet Singh",
+        "firstMovie": "Venkatadri Express (2013)",
+        "birthPlace": "New Delhi, India"
+      },
+      {
+        "name": "Nivetha Thomas",
+        "firstMovie": "Gentleman (2016)",
+        "birthPlace": "Chennai, Tamil Nadu, India"
+      },
+      {
+        "name": "Anjali",
+        "firstMovie": "Photo (2006)",
+        "birthPlace": "Razole, Andhra Pradesh, India"
+      },
+      {
+        "name": "Keerthy Suresh",
+        "firstMovie": "I don’t know",
+        "birthPlace": "Thiruvananthapuram, Kerala, India"
+      },
+      {
+        "name": "Trisha Krishnan",
+        "firstMovie": "Varsham (2004)",
+        "birthPlace": "Chennai, Tamil Nadu, India"
+      },
+      {
+        "name": "Sai Pallavi",
+        "firstMovie": "I don’t know",
+        "birthPlace": "Coimbatore, Tamil Nadu, India"
+      },
+      {
+        "name": "Raashi Khanna",
+        "firstMovie": "Oohalu Gusagusalade (2014)",
+        "birthPlace": "New Delhi, India"
+      },
+      {
+        "name": "Nithya Menen",
+        "firstMovie": "Ala Modalaindi (2007)",
+        "birthPlace": "Bengaluru, Karnataka, India"
+      },
+      {
+        "name": "Kriti Shetty",
+        "firstMovie": "Uppena (2021)",
+        "birthPlace": "Mangaluru, Karnataka, India"
+      }
+    ]
+    let tableHTML = '<tr><th class="names">Name</th><th class="movies">First Movie</th><th class="places">Birth Place</th></tr>';
+
+    function render() {
+      heriones.forEach((herione) => {
+        tableHTML += `
+        <tr>
+          <td>${herione.name}</td>
+          <td>${herione.firstMovie}</td>
+          <td>${herione.birthPlace}</td>  
+        </tr>
+      `;
+      });
+
+      setTimeout(() => {
+
+        document.querySelector('.names').addEventListener('click', () => {
+          heriones.sort((a, b) => a.name > b.name ? 1 : -1);
+          tableHTML = '<tr><th class="names">Name</th><th class="movies">First Movie</th><th class="places">Birth Place</th></tr>';
+          document.querySelector('table').innerHTML = '';
+          render();
+        });
+
+        document.querySelector('.movies').addEventListener('click', () => {
+          heriones.sort((a, b) => a.firstMovie > b.firstMovie ? 1 : -1);
+          tableHTML = '<tr><th class="names">Name</th><th class="movies">First Movie</th><th class="places">Birth Place</th></tr>';
+          document.querySelector('table').innerHTML = '';
+          render();
+        })
+      
+        document.querySelector('.places').addEventListener('click', () => {
+          heriones.sort((a, b) => a.birthPlace > b.birthPlace ? 1 : -1);
+          tableHTML = '<tr><th class="names">Name</th><th class="movies">First Movie</th><th class="places">Birth Place</th></tr>';
+          document.querySelector('table').innerHTML = '';
+          render();
+        })
+
+      }, 100);
+
+      document.querySelector('table').innerHTML = tableHTML;
+    }
+
+    //render();
+    document.addEventListener('DOMContentLoaded', render)
+
+
+  </script>
+</body>
+
+</html

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<style>
+
+  body {
+    margin: 0;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px;
+    background-color: rgba(104, 21, 146, 0.943);
+    margin: 0;
+  }
+
+  .container li{
+    margin: 20px;
+    list-style: none;
+    padding: 20px;
+    border: 2px solid black;
+    width: 300px;
+    background-color: rgba(159, 143, 143, 0.452);
+    color: rgb(236, 195, 62);
+    border-radius: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 1.3px;
+    backdrop-filter: blur(10px);
+  }
+
+  li h2 {
+    text-decoration: underline;
+    text-decoration-color: rgba(205, 59, 59, 0.795);
+  }
+
+</style>
+
+<body>
+
+  <ul class="container"></ul>
+
+  
+  <script>
+
+    let heriones = [
+      {
+        "name": "Anushka Shetty",
+        "firstMovie": "Super (2005)",
+        "birthPlace": "Mangaluru, Karnataka, India"
+      },
+      {
+        "name": "Kajal Aggarwal",
+        "firstMovie": "Lakshmi Kalyanam (2007)",
+        "birthPlace": "Mumbai, Maharashtra, India"
+      },
+      {
+        "name": "Samantha Ruth Prabhu",
+        "firstMovie": "Ye Maaya Chesave (2010)",
+        "birthPlace": "Chennai, Tamil Nadu, India"
+      },
+      {
+        "name": "Rashmika Mandanna",
+        "firstMovie": "Chalo (2018)",
+        "birthPlace": "Virajpet, Karnataka, India"
+      },
+      {
+        "name": "Pooja Hegde",
+        "firstMovie": "Oka Laila Kosam (2014)",
+        "birthPlace": "Mumbai, Maharashtra, India"
+      },
+      {
+        "name": "Tamannaah Bhatia",
+        "firstMovie": "Sri (2005)",
+        "birthPlace": "Mumbai, Maharashtra, India"
+      },
+      {
+        "name": "Shruti Haasan",
+        "firstMovie": "Anaganaga O Dheerudu (2011)",
+        "birthPlace": "Chennai, Tamil Nadu, India"
+      },
+      {
+        "name": "Rakul Preet Singh",
+        "firstMovie": "Venkatadri Express (2013)",
+        "birthPlace": "New Delhi, India"
+      },
+      {
+        "name": "Nivetha Thomas",
+        "firstMovie": "Gentleman (2016)",
+        "birthPlace": "Chennai, Tamil Nadu, India"
+      },
+      {
+        "name": "Anjali",
+        "firstMovie": "Photo (2006)",
+        "birthPlace": "Razole, Andhra Pradesh, India"
+      },
+      {
+        "name": "Keerthy Suresh",
+        "firstMovie": "I don’t know",
+        "birthPlace": "Thiruvananthapuram, Kerala, India"
+      },
+      {
+        "name": "Trisha Krishnan",
+        "firstMovie": "Varsham (2004)",
+        "birthPlace": "Chennai, Tamil Nadu, India"
+      },
+      {
+        "name": "Sai Pallavi",
+        "firstMovie": "I don’t know",
+        "birthPlace": "Coimbatore, Tamil Nadu, India"
+      },
+      {
+        "name": "Raashi Khanna",
+        "firstMovie": "Oohalu Gusagusalade (2014)",
+        "birthPlace": "New Delhi, India"
+      },
+      {
+        "name": "Nithya Menen",
+        "firstMovie": "Ala Modalaindi (2007)",
+        "birthPlace": "Bengaluru, Karnataka, India"
+      },
+      {
+        "name": "Kriti Shetty",
+        "firstMovie": "Uppena (2021)",
+        "birthPlace": "Mangaluru, Karnataka, India"
+      }
+    ]
+    let ListHTML = '';
+
+    heriones.forEach( (herione) => {
+      ListHTML += `
+        <li>
+          <h2>${herione.name}</h2> 
+          <h3>${herione.firstMovie}</h3>
+          <p>${herione.birthPlace}</p> 
+        </li>
+      `;
+    })
+
+    document.querySelector('.container').innerHTML=ListHTML;
+
+  </script>
+</body>
+
+</html>

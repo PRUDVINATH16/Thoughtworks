@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIST DISPLAY</title>
+
+  <style>
+    li {
+      list-style: none;
+      font-family: Geneva, Tahoma, sans-serif;
+      padding: 5px;
+    }
+  </style>
+
+</head>
+<body>
+
+  <ul></ul>
+  
+  <script>
+    const array_elements = ["HTML", "CSS", "JavaScript", "React", "NodeJs", "ExpressJs", "MongoDB"];
+
+    let ListHTML = '';
+    array_elements.forEach( (element) => {
+      ListHTML += `<li>${element}</li>`
+    });
+
+    document.querySelector('ul').innerHTML = ListHTML;
+
+  </script>
+</body>
+</html>

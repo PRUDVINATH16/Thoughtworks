@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBJECT TABLE</title>
+
+  <style>
+    table,
+    td,
+    th {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    td, th {
+      padding: 10px;
+      text-align: center;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Course</th>
+        <th>score</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
+  <script>
+
+    const students = [
+      { id: 1, name: "Aarav", age: 20, course: "Web Dev", score: 85 },
+      { id: 2, name: "Meera", age: 22, course: "UI/UX", score: 72 },
+      { id: 3, name: "Rohan", age: 19, course: "JavaScript", score: 91 },
+      { id: 4, name: "Ananya", age: 21, course: "React", score: 64 },
+      { id: 5, name: "Kabir", age: 23, course: "Node.js", score: 78 }
+    ];
+
+    students.forEach((student) => {
+      document.querySelector('tbody').innerHTML += `
+        <tr>
+          <td>${student.name}</td>
+          <td>${student.age}</td>
+          <td>${student.course}</td>
+          <td>${student.score}</td>
+        </tr>
+      `;
+    });
+
+
+
+  </script>
+</body>
+
+</html>

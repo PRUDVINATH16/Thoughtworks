@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    var people = [
+      {
+        "firstname": "praveen",
+        "lastname": "gubbala",
+        "age": 36,
+        "gender": "male",
+        "city": "hyd",
+        "salary": 10000
+      },
+      {
+        "firstname": "srikanth",
+        "lastname": "gubbala",
+        "age": 32,
+        "gender": "male",
+        "city": "bengaluru",
+        "salary": 20000
+      },
+      {
+        "firstname": "pradeep",
+        "lastname": "reddy",
+        "age": 21,
+        "gender": "male",
+        "city": "hyd",
+        "salary": 25000
+      },
+      {
+        "firstname": "mounika",
+        "lastname": "mudiraj",
+        "age": 20,
+        "gender": "female",
+        "city": "nalgonda",
+        "salary": 30000
+      },
+      {
+        "firstname": "nikhil",
+        "lastname": "m",
+        "age": 22,
+        "gender": "male",
+        "city": "guntur",
+        "salary": 2000
+      },
+      {
+        "firstname": "riya",
+        "lastname": "bhadouria",
+        "age": 14,
+        "gender": "female",
+        "city": "indore",
+        "salary": 40000
+      }
+    ]
+
+    console.log('happy coding!!');
+
+    //1. First question and second one too
+
+    /* people.forEach( (person) => {
+      console.log(person['firstname']+' '+person.lastname)
+    }) */
+
+    //7. Total salary of all people
+    /* console.log(people.reduce( (sum, person) => {
+      return sum + person.salary
+    }, 0)) */
+
+    /*     console.log(people.map( (person) => {
+          return {name: person.firstname +' '+ person.lastname, age: person.age}
+          }).sort( (a, b) => {
+            if(b.age > a.age) return 1 
+            else -1
+          }).forEach( (person) => console.log(person.name))
+        ) */
+/* 
+    for (let i = 0; i < 3; i++) {
+      setTimeout(function () {
+        console.log("Hello Deepika " + i);
+      }, 1000);
+    } */
+
+    a = [10, 20, 39];
+
+    a.forEach( (a, j) => {
+      setTimeout(() => {
+        function ab() {
+          console.log(j)
+        }
+        ab()
+        console.dir(ab)
+      }, 1000);
+    })
+
+
+
+  </script>
+
+</body>
+
+</html>

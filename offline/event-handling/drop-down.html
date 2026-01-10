@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DROP DOWN</title>
+
+  <style>
+
+    .container {
+      position: relative;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    .heading {
+      background-color: gray;
+      border: 2px solid black;
+      padding: 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    span {
+      rotate: 70deg;
+      font-size: 1.4rem;
+    }
+
+    .description {
+      position: absolute;
+      background-color: rgb(205, 203, 203);
+      border: 1px solid black;
+      position: relative;
+      transition: all 3s;
+      animation: slide .4s;
+      font-family: 'Arial Narrow Bold', sans-serif;
+      padding: 20px;
+    }
+
+    @keyframes slide {
+      from {
+        top: -10px;
+      } to {
+        top: 0px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="heading" onclick="drop()">Click
+      <span>&gt;</span>
+    </div>
+    <div class="description" style="opacity: 0; display: none;">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      Perferendis harum praesentium ratione magnam incidunt numquam reprehenderit sed molestias, blanditiis earum?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit nemo quidem, fugiat obcaecati neque quis distinctio sit eligendi dolores amet sint ipsum aspernatur! Natus maxime sint animi. Rem, voluptatem itaque?</div>
+  </div>
+
+  <script>
+    function drop() {
+      let ele = document.querySelector('.description');
+      let span = document.querySelector('span');
+      if(ele.style.display == 'none'){
+        ele.style.display = 'flex';
+        ele.style.opacity = 1;
+        span.style.rotate = "230deg";
+      } else {
+        ele.style.opacity = 0;
+        ele.style.display = 'none';
+        span.style.rotate = "70deg";
+      }
+    }
+  </script>
+</body>
+
+</html>

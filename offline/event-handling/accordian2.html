@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accordian</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .quotes-container {
+      padding: 20px;
+    }
+
+    h2 {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      padding: 12px 0;
+      font-size: 1.5rem;
+    }
+
+    p {
+      padding-bottom: 24px;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-size: 1.25rem;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="quotes-container">
+
+  </div>
+
+  <script>
+    const quotes = [
+      {
+        quote: "The only way to do great work is to love what you do.",
+        explanation: "This quote by Steve Jobs emphasizes the importance of passion in achieving excellence in one's work."
+      },
+      {
+        quote: "Innovation distinguishes between a leader and a follower.",
+        explanation: "Another quote from Steve Jobs, highlighting the critical role of innovation in leadership and market differentiation."
+      },
+      {
+        quote: "Stay hungry, stay foolish.",
+        explanation: "A famous line from Steve Jobs' Stanford commencement speech, encouraging continuous learning and unconventional thinking."
+      },
+      {
+        quote: "Your time is limited, don't waste it living someone else's life.",
+        explanation: "This quote, also by Steve Jobs, advises individuals to pursue their own paths and not conform to others' expectations."
+      },
+      {
+        quote: "The future belongs to those who believe in the beauty of their dreams.",
+        explanation: "Eleanor Roosevelt's quote inspires hope and the pursuit of aspirations."
+      },
+      {
+        quote: "Strive not to be a success, but rather to be of value.",
+        explanation: "Albert Einstein's advice focuses on contributing meaningfully rather than just achieving personal success."
+      },
+      {
+        quote: "The only impossible journey is the one you never begin.",
+        explanation: "Tony Robbins encourages taking the first step towards any goal, no matter how daunting."
+      }
+    ];
+
+    let quotesContainer = document.querySelector('.quotes-container');
+    let quotesHTML = '';
+
+    quotes.forEach((quote) => {
+      quotesHTML += `
+        <div>
+          <h2>${quote.quote}</h2>
+          <p>${quote.explanation}</p>
+        </div>
+      `;
+    });
+
+    quotesContainer.innerHTML = quotesHTML;
+
+    quotesContainer.addEventListener('click', (ev) => {
+      if (ev.srcElement.nodeName == "H2") {
+        console.log()
+        console.log(ev.target.nextElementSibling)
+        console.log(ev.target.nextElementSibling.style.display)
+        if (ev.target.nextElementSibling.style.display === "block") {
+          ev.target.nextElementSibling.style.display = "none";
+        } else {
+          ev.target.nextElementSibling.style.display = "block";
+        }
+      }
+    });
+
+  </script>
+</body>
+
+</html>

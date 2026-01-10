@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Slider</title>
+
+  <style>
+
+    img {
+      width: 400px;
+      height: 250px;
+      border-radius: 20px;
+      margin: 20px;
+    }
+
+    .elements {
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+  </style>
+
+</head>
+<body>
+  
+  <h2>Image Slider</h2>
+  <div class="elements">
+    <button class="previous" onclick="previous()">Previous</button>
+    <img src="" alt="" class="image-element">
+    <button class="next" onclick="next()">Next</button>
+  </div>
+
+  <script>
+    const images = [
+      "https://i.pinimg.com/736x/59/fa/2d/59fa2d3d491364e7634540bd5f9d7c38.jpg",
+      "https://i.pinimg.com/736x/57/92/2c/57922c157d5c3ddac7988f8a92abdef5.jpg",
+      "https://i.pinimg.com/736x/c9/7d/7f/c97d7f1f2cca49a6d90178c91c1ea04a.jpg",
+      "https://i.pinimg.com/1200x/f3/3d/63/f33d63068e06719d25878c49713263b8.jpg"
+    ]
+
+    let index = 0;
+    let previous_button = document.querySelector('.previous');
+    let next_button = document.querySelector('.next');
+    let image_element = document.querySelector('img')
+
+    function renderImage() {
+
+      image_element.src = images[index];
+      if(index == 0) {
+        previous_button.disabled = true;
+      } else {
+        previous_button.disabled = false; 
+      }
+
+      if(index == images.length-1) {
+        next_button.disabled = true;
+      } else {
+        next_button.disabled = false;
+      }
+
+    }
+
+    function previous() {
+      index--;
+      renderImage();
+    }
+
+    function next() {
+      index++;
+      renderImage();
+    }
+
+    renderImage();
+
+  </script>
+</body>
+</html>

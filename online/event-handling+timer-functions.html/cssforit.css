@@ -1,0 +1,187 @@
+/* --------------------------------------- */
+/* --------- GLOBAL STYLES -------------- */
+/* --------------------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: cursive;
+}
+
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+button {
+  cursor: pointer;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(113, 112, 112, 0.459);  
+}
+
+/* --------------------------------------- */
+/* --------- MAIN CONTAINER ------------- */
+/* --------------------------------------- */
+
+.container {
+  background-color: rgba(102, 117, 94, 0.489);
+  width: 60%;
+  height: 70%;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* --------------------------------------- */
+/* --------- TIME SELECTORS -------------- */
+/* --------------------------------------- */
+
+.timers-selector {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.timer-selector {
+  display: flex;
+  align-items: center;
+  background-color: rgba(108, 216, 50, 0.769);
+  padding: 10px 26px;
+  border-radius: 30px;
+  gap: 4px;
+  border: transparent;
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+
+.timer-selector:hover {
+  outline: 2px solid black;
+}
+
+.active {
+  outline: 2px solid black;
+  outline-offset: 4px;
+  color: black;
+}
+
+.time-select {
+  opacity: .6;
+}
+
+.timer-selector.active .time-select {
+  opacity: 1;
+}
+
+/* --------------------------------------- */
+/* --------- TIME DISPLAY ---------------- */
+/* --------------------------------------- */
+
+.timer, .stop-watch {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 25%;
+  align-self: center;
+  justify-content: space-around;
+  background-color: rgba(108, 216, 50, 0.397);
+  padding:3px 14px;
+  border-radius: 16px;
+}
+
+input {
+  border: transparent;
+  background-color: transparent;
+  width: 30px;
+  text-align: center;
+  text-decoration: underline;
+  font-size: 1.3rem;
+  caret-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+label {
+  font-size: 1.4rem;
+  color: black;
+}
+
+input:focus {
+  outline: none;
+}
+
+.stop-watch span {
+  font-size: 1.4rem;
+  color: black;
+}
+
+/* --------------------------------------- */
+/* --------- CONTROL BUTTONS ------------- */
+/* --------------------------------------- */
+
+.control-buttons {
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-play, .btn-pause {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-play > button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  border-radius: 15px;
+  background-color: rgba(108, 216, 50, 0.769);
+  border: transparent;
+}
+
+.btn-play > button:hover {
+  border: 2px solid black;
+}
+
+.pause-btn, .reset-btn {
+  width: 48%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  border-radius: 15px;
+  background-color: rgba(108, 216, 50, 0.769);
+  border: transparent;
+}
+
+.pause-btn:hover, .reset-btn:hover {
+  border: 2px solid black;
+}

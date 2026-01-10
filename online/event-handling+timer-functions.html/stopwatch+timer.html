@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIMER + STOPWATCH</title>
+  <link rel="stylesheet" href="cssforit.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="timers-selector">
+      <div class="timer-selector timer-label active">
+        <svg class="time-select" xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#000">
+          <path
+            d="m618.12-302.15 39.73-39.73-149.47-149.65v-186.05h-55.96v208.93l165.7 166.5ZM480.09-108.08q-77.15 0-145.06-29.32-67.92-29.33-118.16-79.6-50.23-50.27-79.51-118.05-29.28-67.79-29.28-144.86 0-77.15 29.32-145.06 29.33-67.92 79.6-118.16 50.27-50.23 118.05-79.51 67.79-29.28 144.86-29.28 77.15 0 145.06 29.32 67.92 29.33 118.16 79.6 50.23 50.27 79.51 118.05 29.28 67.79 29.28 144.86 0 77.15-29.32 145.06-29.33 67.92-79.6 118.16-50.27 50.23-118.05 79.51-67.79 29.28-144.86 29.28ZM480-480Zm0 315.96q131.08 0 223.52-92.44T795.96-480q0-131.08-92.44-223.52T480-795.96q-131.08 0-223.52 92.44T164.04-480q0 131.08 92.44 223.52T480-164.04Z" />
+        </svg>
+        <span>Timer</span>
+      </div>
+      <div class="timer-selector stopwatch-label">
+        <svg class="time-select" xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#000">
+          <path
+            d="M370.12-847.58v-55.96h219.76v55.96H370.12Zm110.01 739.5q-68.54 0-129.24-26.21t-105.93-71.53q-45.24-45.33-71.46-106-26.23-60.67-26.23-129.12 0-68.3 26.23-128.97 26.22-60.67 71.46-105.94 45.23-45.26 105.88-71.48 60.64-26.21 129.16-26.21 61.38 0 115.02 20.64 53.63 20.63 100.1 57.63l48.15-48.23 39.42 39.42-48.23 48.23q36.69 45.58 57.48 99.62 20.79 54.04 20.79 115.42 0 68.47-26.21 129.08-26.22 60.6-71.43 105.88-45.22 45.27-105.82 71.52-60.6 26.25-129.14 26.25Zm.03-55.96q114.72 0 195.67-81.1 80.94-81.1 80.94-195.83 0-114.72-81.1-195.66-81.1-80.95-195.83-80.95-114.72 0-195.67 81.1-80.94 81.1-80.94 195.83 0 114.73 81.1 195.67 81.1 80.94 195.83 80.94ZM480-440.81ZM379.89-294.04h55.96v-293.54h-55.96v293.54Zm144.46 0h55.96v-293.54h-55.96v293.54Z" />
+        </svg>
+        <span>Stopwatch</span>
+      </div>
+    </div>
+
+    <div class="timer">
+      <input type="number" value="00"><label>:</label>
+      <input type="number" value="01"><label>:</label>
+      <input type="number" value="00">
+    </div>
+
+    <div class="clock hidden">
+      <span class="clock-timer"></span>
+    </div>
+
+    <div class="stop-watch hidden">
+      <span class="hr">00</span><label>:</label>
+      <span class="min">00</span><label>:</label>
+      <span class="sec">00</span>
+    </div>
+
+    <div class="control-buttons">
+      <div class="btn-play">
+        <button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+            <path d="M320-200v-560l440 280-440 280Z" />
+          </svg><span>Play</span></button>
+      </div>
+      <div class="btn-pause hidden">
+ 
+        <button class="pause-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+            <path d="M560-200v-560h160v560H560Zm-320 0v-560h160v560H240Z" />
+          </svg>
+          <span>Pause</span>
+        </button>
+
+        <button class="reset-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000">
+            <path
+              d="M480-80q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-440h80q0 117 81.5 198.5T480-160q117 0 198.5-81.5T760-440q0-117-81.5-198.5T480-720h-6l62 62-56 58-160-160 160-160 56 58-62 62h6q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-440q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-80Z" />
+          </svg>
+          <span>Pause</span>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <script src="jsforthis.js"></script>
+
+</body>
+
+</html>
