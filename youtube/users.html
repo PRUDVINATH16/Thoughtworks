@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USERS</title>
+
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <h3>Add User</h3>
+  <label>Name: <input type="text" class="name" /></label>
+  <label>Email: <input type="text" class="email" /></label>
+  <label>Phone: <input type="text" class="phone" /></label>
+  <button onclick="AddUser()">Add User</button>
+
+  <h2>Users</h2>
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
+  <script>
+
+    let users = [];
+    let UsersHTML = '';
+
+    document.querySelector('tbody').addEventListener('click', (ev) => {
+      const button = ev.target.closest('button');
+      if (!button) return;
+
+      const userId = button.dataset.userId;
+      const action = button.dataset.action;
+
+      if (action === 'edit') {
+        editUser(userId);
+      }
+
+      if (action === 'delete') {
+        deleteUser(userId);
+      }
+    });
+
+    function AddUser() {
+
+      let userObj = {
+        id: 0,
+        name: 'username',
+        email: 'email@gmail.com',
+        phone: 98998989898,
+        active: 'Active'
+      };
+
+      let name = document.querySelector('.name').value;
+      let email = document.querySelector('.email').value;
+      let phone = document.querySelector('.phone').value;
+
+      let lastId = users.length ? users[users.length - 1].id : 0;
+
+      userObj.id = lastId + 1;
+      userObj.name = name;
+      userObj.email = email;
+      userObj.phone = phone;
+
+      console.log(userObj)
+      console.log(users)
+      users.push(userObj);
+      renderUsers();
+
+    }
+
+    function renderUsers() {
+      UsersHTML = '';
+      users.forEach((user) => {
+        if (user.active === 'Active') {
+          UsersHTML += `
+          <tr>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${user.phone}</td>
+            <td><button data-user-id = ${user.id} data-action = "edit">Edit</button></td>
+            <td><button data-user-id = ${user.id} data-action = "delete">Delete</button></td>
+          </tr>
+        `;
+        }
+      });
+      document.querySelector('tbody').innerHTML = '';
+      document.querySelector('tbody').innerHTML = UsersHTML;
+    }
+
+    function editUser(userId) {
+      const user = users.find(u => u.id == userId);
+      const newName = prompt("Enter new name:", user.name);
+      const newEmail = prompt("Enter new email:", user.email);
+      const newPhone = prompt("Enter new phone:", user.phone);
+
+      if (newName !== null) user.name = newName;
+      if (newEmail !== null) user.email = newEmail;
+      if (newPhone !== null) user.phone = newPhone;
+
+      renderUsers();
+    }
+
+    function deleteUser(userId) {
+      const userIndex = users.findIndex(u => u.id == userId);
+      if (userIndex !== -1) {
+        users[userIndex].active = 'Inactive';
+        renderUsers();
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

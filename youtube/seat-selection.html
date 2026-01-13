@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEAT-SELECTION</title>
+
+  <style>
+    .container {
+      height: 500px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .box {
+      background-color: red;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+
+    .active {
+      background-color: green;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="seats">
+    <span class="available">Available: 6</span>
+    <span class="booked">Booked: 0</span>
+  </div>
+
+  <div class="container">
+
+    <div class="box active"></div>
+    <div class="box active"></div>
+    <div class="box active"></div>
+    <div class="box active"></div>
+    <div class="box active"></div>
+    <div class="box active"></div>
+
+
+  </div>
+
+  <script>
+
+    let seats = { available: 6, booked: 0 };
+
+    document.querySelector('.container').addEventListener('click', (ev) => {
+      if (ev.target.closest('.box')) {
+        if (ev.target.classList.contains('active')) {
+          if (seats.available > 0) {
+            ev.target.classList.remove('active');
+            seats.available--;
+            seats.booked++;
+            renderSeats();
+          }
+        } else {
+          if (seats.booked > 0) {
+            ev.target.classList.add('active');
+            seats.available++;
+            seats.booked--;
+            renderSeats();
+          }
+        }
+      }
+      });
+
+    function renderSeats() {
+      document.querySelector('.available').innerText = `Available: ${seats.available}`;
+      document.querySelector('.booked').innerText = `Booked: ${seats.booked}`;
+    }
+
+  </script>
+
+</body>
+
+</html>
