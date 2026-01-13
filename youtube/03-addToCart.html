@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRODUCTS</title>
+
+  <style>
+    .products-container {
+      display: grid;
+      grid-template-columns: 290px 290px 290px;
+      gap: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      width: calc(290px * 3);
+    }
+
+    .product {
+      height: 360px;
+      padding: 10px;
+      border: 1.5px solid gray;
+      border-radius: 10px;
+      background-color: rgba(205, 197, 197, 0.276);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .img-container {
+      width: 100%;
+      height: 70%;
+    }
+
+    .img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .product-details {
+      display: flex;
+      height: 10%;
+      align-items: center;
+      justify-content: space-around;
+      color: rgb(2, 83, 2);
+      width: 100%;
+    }
+
+    .product-name {
+      width: 80%;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .product-price {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    .buttons-container {
+      width: 100%;
+      height: 10%;
+    }
+
+    .cart-button,
+    .quantity-controller {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      color: rgb(2, 83, 2);
+      font-weight: 600;
+      font-size: 1.2rem;
+      border: 1.7px solid rgb(2, 83, 2);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 2s;
+    }
+
+    .cart-button:hover {
+      background-color: rgba(2, 83, 2, 0.486);
+      color: white;
+    }
+
+    .plus-sign {
+      font-size: 1.3rem;
+      font-weight: 700;
+      padding-right: 4px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .quantity-controller {
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .plus-button,
+    .minus-button,
+    .quantity {
+      width: 30%;
+      height: 80%;
+      background-color: white;
+      color: rgb(2, 83, 2);
+      font-weight: 600;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .plus-button:hover,
+    .minus-button:hover {
+      background-color: rgba(2, 83, 2, 0.486);
+      color: white;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body {
+      display: flex;
+    }
+
+    .checkout-section {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 294px;
+      height: 100vh;
+      border-left: 2px solid rgba(128, 128, 128, 0.404);
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    table,
+    th,
+    td {
+      border: 2px solid gray;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .checkout-section span {
+      font-size: 1.2rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 10px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="products-container">
+    <!-- JS WILL ADD THIS -->
+  </div>
+
+  <div class="checkout-section">
+    <span class="cart-quantity">Cart: 0</span>
+    <span class="total-price">Total: 0</span>
+    <table>
+      <thead>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+
+    let quantity = 0;
+    let cartItems = [];
+
+    const supermarketProducts = [
+      {
+        id: 1,
+        url: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Fresh Milk (1L)",
+        price: "₹60"
+      },
+      {
+        id: 2,
+        url: "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Whole Grain Bread",
+        price: "₹45"
+      },
+      {
+        id: 3,
+        url: "https://images.pexels.com/photos/162712/egg-white-food-protein-162712.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Farm Fresh Eggs (6pcs)",
+        price: "₹55"
+      },
+      {
+        id: 4,
+        url: "https://images.pexels.com/photos/2238309/pexels-photo-2238309.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Ripe Bananas (1 Dozen)",
+        price: "₹70"
+      },
+      {
+        id: 5,
+        url: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Red Tomatoes (1kg)",
+        price: "₹40"
+      },
+      {
+        id: 6,
+        url: "https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Red Apples (1kg)",
+        price: "₹180"
+      },
+      {
+        id: 7,
+        url: "https://images.pexels.com/photos/1337825/pexels-photo-1337825.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Fresh Orange Juice",
+        price: "₹110"
+      },
+      {
+        id: 8,
+        url: "https://images.pexels.com/photos/65882/chocolate-dark-coffee-65882.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Dark Chocolate Bar",
+        price: "₹95"
+      },
+      {
+        id: 9,
+        url: "https://images.pexels.com/photos/4110251/pexels-photo-4110251.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Basmati Rice (1kg)",
+        price: "₹125"
+      },
+      {
+        id: 10,
+        url: "https://images.pexels.com/photos/1435737/pexels-photo-1435737.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Organic Broccoli",
+        price: "₹90"
+      },
+      {
+        id: 11,
+        url: "https://images.pexels.com/photos/144248/potatoes-vegetables-erdfrucht-bio-144248.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Raw Potatoes (1kg)",
+        price: "₹35"
+      },
+      {
+        id: 12,
+        url: "https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Fresh Carrots (500g)",
+        price: "₹30"
+      },
+      {
+        id: 13,
+        url: "https://images.pexels.com/photos/33260/honey-sweet-syrup-organic.jpg?auto=compress&cs=tinysrgb&w=600",
+        name: "Pure Organic Honey",
+        price: "₹250"
+      },
+      {
+        id: 14,
+        url: "https://images.pexels.com/photos/1435895/pexels-photo-1435895.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Penne Pasta (500g)",
+        price: "₹85"
+      },
+      {
+        id: 15,
+        url: "https://images.pexels.com/photos/4197444/pexels-photo-4197444.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Red Onions (1kg)",
+        price: "₹45"
+      },
+      {
+        id: 16,
+        url: "https://images.pexels.com/photos/821365/pexels-photo-821365.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Cheddar Cheese Block",
+        price: "₹320"
+      },
+      {
+        id: 17,
+        url: "https://images.pexels.com/photos/33311/dairy-product-yogurt-breakfast-food.jpg?auto=compress&cs=tinysrgb&w=600",
+        name: "Plain Greek Yogurt",
+        price: "₹65"
+      },
+      {
+        id: 18,
+        url: "https://images.pexels.com/photos/708777/pexels-photo-708777.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Green Grapes (500g)",
+        price: "₹120"
+      },
+      {
+        id: 19,
+        url: "https://images.pexels.com/photos/6294354/pexels-photo-6294354.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "All-Purpose Flour (1kg)",
+        price: "₹55"
+      },
+      {
+        id: 20,
+        url: "https://images.pexels.com/photos/407041/pexels-photo-407041.jpeg?auto=compress&cs=tinysrgb&w=600",
+        name: "Mineral Water (1L)",
+        price: "₹20"
+      }
+    ];
+
+    let ProductsHTML = '';
+    supermarketProducts.forEach((product) => {
+      ProductsHTML += `
+        <div class="product">
+          <div class="img-container">
+            <img src="${product.url}" alt="product-image">
+          </div>
+          <div class="product-details">
+            <span class="product-name">${product.name}</span>
+            <span class="product-price">${product.price}</span>
+          </div>
+          <div class="buttons-container">
+            <button class="cart-button" data-id="${product.id}"> <span class="plus-sign">+</span> Add </button>
+
+            <div class="quantity-controller hidden">
+              <button class="minus-button" data-id="${product.id}">-</button>
+              <span class="quantity">Cart: 0</span>
+              <button class="plus-button" data-id="${product.id}">+</button>
+            </div>
+
+          </div>
+        </div>
+      `;
+    });
+
+    document.querySelector('.products-container').innerHTML = ProductsHTML;
+
+    function renderCheckout() {
+      const tbody = document.querySelector('tbody');
+      const cartQtyEl = document.querySelector('.cart-quantity');
+      const totalPriceEl = document.querySelector('.total-price');
+
+      // total quantity
+      const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+      cartQtyEl.textContent = "Cart: " + totalQuantity;
+
+      // total price
+      const totalPrice = cartItems.reduce((sum, item) => sum + item.total, 0);
+      totalPriceEl.textContent = "Total: ₹" + totalPrice;
+
+      // cart table
+      let cartHTML = '';
+      cartItems.forEach(item => {
+        cartHTML += `
+      <tr>
+        <td>${item.title}</td>
+        <td>₹${item.price}</td>
+        <td>${item.quantity}</td>
+        <td>₹${item.total}</td>
+      </tr>
+    `;
+      });
+      tbody.innerHTML = cartHTML;
+    }
+
+    document.querySelectorAll('.buttons-container').forEach(container => {
+      container.addEventListener('click', ev => {
+
+        const cartButton = container.querySelector('.cart-button');
+        const quantityController = container.querySelector('.quantity-controller');
+        const plusBtn = ev.target.closest('.plus-button');
+        const minusBtn = ev.target.closest('.minus-button');
+        const addBtn = ev.target.closest('.cart-button');
+
+        // ADD TO CART
+        if (addBtn) {
+          const id = Number(addBtn.dataset.id);
+
+          const product = supermarketProducts.find(p => p.id === id);
+          if (!product) return;
+
+          cartItems.push({
+            id,
+            title: product.name,
+            price: Number(product.price.replace('₹', '')),
+            quantity: 1,
+            total: Number(product.price.replace('₹', ''))
+          });
+
+          // update UI
+          cartButton.classList.add('hidden');
+          quantityController.style.display = 'flex';
+          quantityController.classList.remove('hidden');
+          const quantitySpan = quantityController.querySelector('.quantity');
+          quantitySpan.textContent = 1; // <--- this fixes the "0" problem
+
+          renderCheckout();
+          return;
+        }
+
+        // INCREMENT
+        if (plusBtn) {
+          const id = Number(plusBtn.dataset.id);
+          const item = cartItems.find(i => i.id === id);
+          if (!item) return;
+
+          item.quantity++;
+          item.total = item.quantity * item.price;
+
+          // update the product card UI
+          const quantitySpan = quantityController.querySelector('.quantity');
+          quantitySpan.textContent = item.quantity;
+
+          renderCheckout();
+          return;
+        }
+
+        // DECREMENT
+        if (minusBtn) {
+          const id = Number(minusBtn.dataset.id);
+          const item = cartItems.find(i => i.id === id);
+          if (!item) return;
+
+          item.quantity--;
+
+          const quantitySpan = quantityController.querySelector('.quantity');
+          quantitySpan.textContent = item.quantity;
+
+          if (item.quantity === 0) {
+            cartItems = cartItems.filter(i => i.id !== id);
+            quantityController.style.display = 'none';
+            cartButton.classList.remove('hidden');
+            quantityController.classList.add('hidden');
+          } else {
+            item.total = item.quantity * item.price;
+          }
+
+          renderCheckout();
+        }
+
+      });
+    });
+  </script>
+
+</body>
+
+</html>
