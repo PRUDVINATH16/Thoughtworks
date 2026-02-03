@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .parent {
+      width: 85%;
+      margin: 20px auto;
+      padding-bottom: 15px;
+      border-bottom: 1.4px solid lightgray;
+    }
+
+    .logo-section {
+      width: 33%;
+      text-align: left;
+      display: inline-block;
+    }
+
+    .logo-section p {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: white;
+      background-color: black;
+      border-radius: .4em;
+      width: 10%;
+      text-align: center;
+      padding: 5px 10px;
+    }
+
+    .nav-section {
+      width: 34%;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .nav-section ul {
+      list-style: none;
+    }
+
+    .nav-section ul li {
+      display: inline;
+      margin: 0 10px;
+      font-size: 1.1em;
+      cursor: pointer;
+      color: rgb(15, 1, 209);
+    }
+
+    .nav-section ul li:nth-child(1) {
+      color: rgba(75, 74, 74, 0.856);
+    }
+
+    .button-section {
+      width: 32%;
+      text-align: right;
+      display: inline-block;
+    }
+
+    .button-section button {
+      padding: 8px 16px;
+      margin-left: 10px;
+      font-size: 1em;
+      border: 2px solid rgb(15, 1, 209);
+      background-color: white;
+      cursor: pointer;
+      border-radius: .45em;
+      transition: all 0.3s ease;
+      color: rgb(15, 1, 209);
+    }
+
+    .button-section button:nth-child(2) {
+      background-color: rgb(15, 1, 209);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="logo-section">
+      <p>B</p>
+    </div>
+    <div class="nav-section">
+      <ul>
+        <li>Home</li>
+        <li>Features</li>
+        <li>Pricing</li>
+        <li>FAQ's</li>
+        <li>About</li>
+      </ul>
+    </div>
+    <div class="button-section">
+      <button>Login</button>
+      <button>Sign-up</button>
+    </div>
+  </div>
+</body>
+</html>
