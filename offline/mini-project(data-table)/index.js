@@ -2,6 +2,8 @@ let pageInfo = {
   pageNumber: 1,
 }
 
+let books = [];
+
 const fetchBooks = () => {
   let booksEndCount = pageInfo.pageNumber * 10;
   let booksStartCount = booksEndCount - 10;
@@ -17,8 +19,6 @@ const fetchBooks = () => {
 const pageNationUIGen = (st_value = 0) => {
   let nums = 0;
   st_value = Number(st_value);
-  console.log(booksData.length)
-  console.log(st_value >= Math.floor(booksData.length / 10) - 8, st_value, booksData.length - 8)
   if (st_value >= Math.floor(booksData.length / 10) - 8) return;
   else {
     if (st_value == 0) {
@@ -34,11 +34,14 @@ const pageNationUIGen = (st_value = 0) => {
     numsHTML += `<span>...</span>`;
     document.querySelector('.numbers').innerHTML = numsHTML;
   }
-} 
+}
 
-const generateTableUI = () => {
+const generateTableUI = (sort = 0) => {
   pageNationUIGen(pageInfo.pageNumber);
-  let books = fetchBooks();
+
+  if (sort == 0) {
+    books = fetchBooks();
+  }
 
   let tableBodyHTML = '';
   books.forEach((book) => {
@@ -115,6 +118,7 @@ document.querySelector('.btn-prev').addEventListener('click', () => {
 document.querySelector('.numbers').addEventListener('click', (e) => {
   let num = e.target.textContent;
   let total_pages = Math.floor(booksData / 10)
+  if (num == '...') return;
   if (booksData.length % 10) {
     total_pages++;
   }
@@ -134,3 +138,53 @@ document.querySelector('.numbers').addEventListener('click', (e) => {
   pageInfo.pageNumber = num;
   generateTableUI();
 });
+
+// FOR SORTING
+
+document.querySelector('thead').addEventListener('click', (e) => {
+  let col = e.target.textContent.trim();
+
+  // ['title', 'isbn', 'pageCount', 'publishedDate', 'thumbnailUrl',            'shortDescription', 'longDescription', 'status', 'authors', 'categories', 'price', 'currency', 'discount', 'discountUnits']
+
+  books.sort((a, b) => {
+
+    if (col === "ISBN") return a.isbn - b.isbn;
+    if (col === "No.of Pages") return a.pageCount - b.pageCount;
+    if (col === "Price") return a.price - b.price;
+    if (col === "Discount") return a.discount - b.discount;
+
+    if (col === "Published Date") {
+      return new Date(a.publishedDate.$date) -
+        new Date(b.publishedDate.$date);
+    }
+
+    if (col === "Authors") {
+      return (a.authors?.join(", ") || "")
+        .localeCompare(b.authors?.join(", ") || "");
+    }
+
+    if (col === "Categories") {
+      return (a.categories?.join(", ") || "")
+        .localeCompare(b.categories?.join(", ") || "");
+    }
+
+    if (col === "Title") {
+      return a.title.localeCompare(b.title);
+    }
+
+    if (col === "Short Description") {
+      return (a.shortDescription || "")
+        .localeCompare(b.shortDescription || "");
+    }
+
+    if (col === "Long Description") {
+      return (a.longDescription || "")
+        .localeCompare(b.longDescription || "");
+    }
+
+  });
+
+
+
+  generateTableUI(sort = 1);
+})
