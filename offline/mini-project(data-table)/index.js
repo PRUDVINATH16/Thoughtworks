@@ -19,11 +19,12 @@ const generateTableUI = () => {
 
   let tableBodyHTML = '';
   books.forEach((book) => {
-    let actualDate = new Date(book.publishedDate.$date);
+    let actualDate = new Date(book?.publishedDate?.$date);
+    let data = `${actualDate.getDate()} - ${actualDate.getMonth() + 1} - ${actualDate.getFullYear()}`
     tableBodyHTML += `
       <tr>
         <td>
-          ${book.title ? book.title : "Data Not Found!!"}
+          ${book?.title ? book.title : "Data Not Found!!"}
         </td>
         <td>
           ${book.isbn ? book.isbn : "Data Not Found!!"}
@@ -32,13 +33,13 @@ const generateTableUI = () => {
           ${book.pageCount ? book.pageCount : "Data Not Found!!"}
         </td>
         <td>
-          ${actualDate.getDate()}-${actualDate.getMonth()+1}-${actualDate.getFullYear()}
+          ${data.includes(NaN) ? 'No date provided' : data}
         </td>
         <td>
-          ${book.price ? "$"+book.price : "Data Not Found!!"}
+          ${book.price ? "$" + book.price : "Data Not Found!!"}
         </td>
         <td>
-          ${book.discount ? "$"+book.discount : "Data Not Found!!"}
+          ${book.discount ? "$" + book.discount : "Data Not Found!!"}
         </td>
         <td>
           ${book.status ? book.status : "Data Not Found!!"}
@@ -50,7 +51,7 @@ const generateTableUI = () => {
           ${book.categories ? book.categories : "Data Not Found!!"}
         </td>
         <td>
-          <a href="${book.thumbnailUrl}">click to view</a>
+          <a href="${book.thumbnailUrl}" target="_blank">click to view</a>
         </td>
         <td>
           ${book.shortDescription ? book.shortDescription : "Data Not Found!!"}
@@ -64,7 +65,39 @@ const generateTableUI = () => {
   document.querySelector('.page-number').textContent = `Page Number: ${pageInfo.pageNumber}`
   document.querySelector('tbody').innerHTML = '';
   document.querySelector('tbody').innerHTML = tableBodyHTML;
-
 }
 
 generateTableUI();
+
+document.querySelector('.btn-next').addEventListener('click', () => {
+  pageInfo.pageNumber++;
+  if (pageInfo.pageNumber == 40) {
+    document.querySelector('.btn-next').disabled = true;
+  } else {
+    document.querySelector('.btn-prev').disabled = false;
+  }
+  generateTableUI();
+});
+
+document.querySelector('.btn-prev').addEventListener('click', () => {
+  pageInfo.pageNumber--;
+  if (pageInfo.pageNumber == 1) {
+    document.querySelector('.btn-prev').disabled = true;
+  } else {
+    document.querySelector('.btn-next').disabled = false;
+  }
+  generateTableUI();
+});
+
+document.querySelector('.numbers').addEventListener('click', (e) => {
+  let num = String(e.target.textContent);
+  if (['1', '2', '3', '4', '5', '6', '7', '8'].includes(num)) {
+    pageInfo.pageNumber = Number(num);
+    if (num == 1) {
+      document.querySelector('.btn-prev').disabled = true;
+    } else {
+      document.querySelector('.btn-prev').disabled = false;
+    }
+    generateTableUI();
+  }
+});
