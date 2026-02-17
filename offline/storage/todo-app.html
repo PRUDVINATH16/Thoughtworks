@@ -96,11 +96,23 @@
       margin-bottom: 10px;
     }
 
+    li input[type="checkbox"] {
+      width: 40px;
+      height: 40px;
+      margin-top: 10px;
+      accent-color: rgb(16, 2, 99);
+    }
+
+    li input[type="checkbox"]:checked + span {
+      text-decoration:line-through;
+    }
+
     li span {
-      width: 70%;
+      width: 60%;
       height: 100%;
       display: flex;
       align-items: center;
+      text-transform: uppercase;
     }
 
   </style>
@@ -151,7 +163,7 @@
       let liHTML = '';
 
       todos.forEach((todo, index) => {
-        liHTML += `<li><span>${todo}</span><button data-index="${index}">Delete</button></li>`;
+        liHTML += `<li><input type="checkbox" data-index="${index}"><span>${todo}</span><button data-index="${index}">Delete</button></li>`;
       });
 
       ulList.innerHTML = liHTML;
