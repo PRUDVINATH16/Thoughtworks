@@ -50,13 +50,13 @@ const generateTableUI = (sort = 0) => {
     tableBodyHTML += `
       <tr>
         <td>
-          ${book?.title ? book.title : "Data Not Found!!"}
+          ${book?.title ?? "Data Not Found!!"}
         </td>
         <td>
-          ${book?.isbn ? book.isbn : "Data Not Found!!"}
+          ${book?.isbn ?? "Data Not Found!!"}
         </td>
         <td>
-          ${book?.pageCount ? book.pageCount : "Data Not Found!!"}
+          ${book?.pageCount ?? "Data Not Found!!"}
         </td>
         <td>
           ${data.includes(NaN) ? 'No date provided' : data}
@@ -68,22 +68,22 @@ const generateTableUI = (sort = 0) => {
           ${book?.discount ? "$" + book.discount : "Data Not Found!!"}
         </td>
         <td>
-          ${book?.status ? book.status : "Data Not Found!!"}
+          ${book?.status ?? "Data Not Found!!"}
         </td>
-        <td>
-          ${book?.authors ? book.authors : "Data Not Found!!"}
+        <td style="--after-content: '${book?.authors ?? "No Data"}'">
+          ${book?.authors ?? "Data Not Found!!"}
         </td>
-        <td>
-          ${book?.categories ? book.categories : "Data Not Found!!"}
+        <td style="--after-content: '${book?.categories ?? "No Data"}'">
+          ${book?.categories ?? "Data Not Found!!"}
         </td>
         <td>
           <a href="${book?.thumbnailUrl}" target="_blank">click to view</a>
         </td>
-        <td>
-          ${book?.shortDescription ? book.shortDescription : "Data Not Found!!"}
+        <td style="--after-content: '${book?.shortDescription ?? "No Data"}'">
+          ${book?.shortDescription ?? "Data Not Found!!"}
         </td>
-        <td>
-          ${book?.longDescription ? book.longDescription : "Data Not Found!!"}
+        <td style="--after-content: '${book?.longDescription ?? "No Data"}'">
+          ${book?.longDescription ?? "Data Not Found!!"}
         </td>
       </tr>
     `;

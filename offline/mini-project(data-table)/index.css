@@ -1,7 +1,7 @@
 :root {}
 
 body {
-  background: linear-gradient(135deg, rgba(214, 219, 246, 0.699) 80%, rgba(4, 46, 255, 0.749));
+  background: linear-gradient(135deg, rgba(4, 46, 255, 0.749) 5%, rgba(214, 219, 246, 0.699) 30%, rgba(214, 219, 246, 0.699) 60%, rgba(4, 46, 255, 0.749));
 }
 
 * {
@@ -35,15 +35,11 @@ td {
   min-width: 150px;
   max-width: 260px;
   height: 35px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow-x: hidden;
   padding-inline: 8px;
   font-size: .75rem;
   letter-spacing: 1px;
   word-spacing: 3px;
   background-color: rgb(255, 255, 255);
-
 }
 
 th {
@@ -74,12 +70,41 @@ th div:nth-child(1) {
 
 td {
   text-align: center;
+  position: relative;
+  overflow: visible;
+  transition: all 2s;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+td:hover::after {
+  content: var(--after-content);
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(83, 69, 240);
+  border: 2px solid black;
+  border-radius: 3px;
+  top: 30px;
+  left: 10px;
+  z-index: 3;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px;
+  color: white;
+}
+
+tr:nth-last-child(-n+3) td:hover::after {
+  bottom: 70;
+  top:auto;
 }
 
 h1 {
   text-align: center;
-  margin: 30px;
+  margin: 20px;
   color: blue;
+  font-weight: 800;
 }
 
 .table-container {
@@ -98,7 +123,8 @@ table {
 
 .page-number {
   padding-left: 20px;
-  color: blue;
+  color: white;
+  font-weight: 500;
 }
 
 .pagenation-container {
@@ -140,5 +166,4 @@ table {
   border-radius: 3px;
   cursor: pointer;
   border: 1.5px solid black;
-
 }
