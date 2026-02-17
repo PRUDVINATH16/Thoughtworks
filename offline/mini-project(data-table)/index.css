@@ -31,10 +31,10 @@ th {
 
 th,
 td {
-  width: 120px;
+  width: 180px;
   min-width: 150px;
   max-width: 260px;
-  height: 35px;
+  height: 45px;
   padding-inline: 8px;
   font-size: .75rem;
   letter-spacing: 1px;
@@ -115,7 +115,7 @@ h1 {
 
 
 table {
-  border-radius: 3px;
+  border-radius: 6px;
   overflow: hidden;
 }
 
@@ -124,6 +124,53 @@ table {
   color: white;
   font-weight: 500;
 }
+
+.page-description {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-div{
+  margin-right: 20px;
+}
+
+.search-div input, .search-div select {
+  height: 100%;
+  width: 180px;
+  border: none;
+  margin-left: 10px;
+  border-radius: 5px;
+  color: blue;
+  font-size: 1.1rem;
+  padding-inline: 10px;
+  padding-right: 10px;
+}
+
+.search-div input:focus, .search-div select:focus {
+  border: 1.5px solid blue;
+  outline: none;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* important */
+  font-size: 15px;
+}
+
 
 .pagenation-container {
   margin: 20px;

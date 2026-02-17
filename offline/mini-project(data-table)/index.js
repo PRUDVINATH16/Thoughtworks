@@ -46,7 +46,7 @@ const generateTableUI = (sort = 0) => {
   let tableBodyHTML = '';
   books.forEach((book) => {
     let actualDate = new Date(book?.publishedDate?.$date);
-    let data = `${actualDate.getDate()} - ${actualDate.getMonth() + 1} - ${actualDate.getFullYear()}`
+    let date = `${actualDate.getDate()} - ${actualDate.getMonth() + 1} - ${actualDate.getFullYear()}`
     tableBodyHTML += `
       <tr>
         <td>
@@ -59,7 +59,7 @@ const generateTableUI = (sort = 0) => {
           ${book?.pageCount ?? "Data Not Found!!"}
         </td>
         <td>
-          ${data.includes(NaN) ? 'No date provided' : data}
+          ${date.includes(NaN) ? 'No date provided' : date}
         </td>
         <td>
           ${book?.price ? "$" + book.price : "Data Not Found!!"}
@@ -187,4 +187,13 @@ document.querySelector('thead').addEventListener('click', (e) => {
 
 
   generateTableUI(sort = 1);
-})
+});
+
+
+// SEARCH FUNCTIONALITY
+
+document.querySelector('.input-search').addEventListener('change', updateBooks)
+
+const updateBooks = () => {{
+  
+}}
