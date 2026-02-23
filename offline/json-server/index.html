@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO DATABASE</title>
+</head>
+
+<body>
+  <div class="inputs" onsubmit="nano(event)">
+    <input type="text" class="inp-title">
+    <input type="text" class="inp-status">
+    <button class="add-todo-button" type="button">Add Todo</button>
+  </div>
+
+  <script>
+    document.querySelector('.add-todo-button').addEventListener('click', () => {
+
+      let title = document.querySelector('.inp-title').value;
+      let status = document.querySelector('.inp-status').value;
+
+      fetch("http://localhost:3000/todos", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, status }),
+      })
+        .then(res => res.json())
+        .then(data => {console.log(data)})
+        alert('stop')
+    });
+
+    function nano(ev) {
+      console.log(ev)
+      ev.preventDefault();
+    }
+  </script>
+</body>
+
+</html>
