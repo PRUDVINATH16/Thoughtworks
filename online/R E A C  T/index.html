@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- Development -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    table, td, th {
+      border:1px solid black;
+      border-collapse: collapse;
+    }
+    td{
+      padding: 10px 15px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    let data = [
+      {
+        name: 'Suresh',
+        age: 21,
+        place: 'Kurnool'
+      },
+      {
+        name: 'Ramesh',
+        age: 20,
+        place: 'Tirupati'
+      },
+      {
+        name: 'Mahesh',
+        age: 19,
+        place: 'Vijaywada'
+      }
+    ]
+
+    let RHTMLElement = <table>
+      {
+        data.map(element => {
+          return (
+            <tr>
+              <td>{element.name}</td> 
+              <td>{element.age}</td> 
+              <td>{element.place}</td>  
+            </tr>
+          )
+        })
+      }
+    </table>
+
+    ReactDOM.render(RHTMLElement, document.querySelector('#root'))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #products {
+            display: grid;
+            list-style: none;
+            background-color: rgba(50, 49, 49, 0.466);
+            gap: 35px;
+            grid-template-columns: repeat(auto-fit, 250px);
+            grid-template-rows: 300px;
+            justify-content: space-evenly;
+            padding: 20px;
+            padding-top: 140px;
+        }
+
+        #products li {
+            width: 100%;
+            padding: 0px;
+            border: 1.4px solid white;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgb(248, 249, 249);
+            height: 300px;
+            background: linear-gradient(to bottom, rgba(205, 146, 146, 0.694), white)
+        }
+
+        #products li .img-container {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #products li img {
+            width: 80%;
+            height: 80%;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            transition: all .4s;
+        }
+
+        li:hover img {
+            transform: rotate(10deg) scale(1.4);
+        }
+
+        #products li h4 {
+            font-weight: 600;
+            color: rgb(195, 14, 14);
+            text-decoration: none;
+            width: 100%;
+            height: 33px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            padding-inline: 10px;
+            padding-top: 13px;
+            font-size: 1.15rem;
+
+        }
+
+        #products a {
+            text-decoration-color: red;
+
+        }
+
+        .nav-bar {
+            width: 80%;
+            display: flex;
+            justify-self: center;
+            height: 60px;
+            border: 1.4px solid white;
+            border-radius: 15px;
+            position: fixed;
+            top: 20px;
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.735);
+            z-index: 2;
+        }
+
+        .nav-bar div:nth-child(1),
+        .cart-count {
+            font-weight: bold;
+            font-size: clamp(2vw, 1rem, 3vw);
+            color: rgb(195, 14, 14);
+            font-family: cursive !important;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-count {
+            width: 30%;
+        }
+
+        .cart-count span {
+            padding: 10px;
+            font-size: 1.4rem;
+            font-family: cursive;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-bar">
+        <div class="name-section">T-W ASSIGNMENT</div>
+        <div class="cart-count">C A R T : <span>0</span></div>
+    </div>
+
+    <ul id="products">
+
+    </ul>
+
+    <script>
+        function dontclose(ev) {
+            ev.stopPropagation();
+        }
+        function mclose() {
+            document.getElementById("modal").style.display = "none"
+        }
+        fetch("https://dummyjson.com/products")
+            .then(res => res.json())
+            .then(data => {
+                data.products.forEach(product => {
+                    var pcard = `
+                        <a href="./product-details.html?id=${product.id}" target="_blank">
+                            <li>
+                                <div class="img-container"><img src="${product.thumbnail}"></div>
+                                <h4>${product.title}</h4>
+                                <h4>₹ ${product.price}</h4>
+                            </li>
+                        </a>
+                    `
+                    document.getElementById("products").innerHTML += pcard;
+                })
+            })
+        function getProductDetails(id) {
+            document.getElementById("modal").style.display = "block"
+            document.getElementById("details").style.display = "block"
+            fetch(`https://dummyjson.com/products/${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("details").innerHTML = "";
+                    document.getElementById("details").innerHTML += `
+                        <h2>${data.title}</h2>
+                        <p>${data.description}</p>
+                        <img src="${data.thumbnail}" alt="${data.title}">
+                        <button onclick="mclose(event)">X</button>
+                    `;
+                })
+        }
+
+        function getQuantity() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || {};
+            let quantityHTML = document.querySelector('.cart-count span');
+            if (Object.keys(cart).length === 0) {
+                quantityHTML.textContent = 0
+            } else {
+                quantityHTML.textContent = Object.keys(cart).length;
+            }
+        }
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'cart') {
+                getQuantity();
+            }
+        });
+
+        getQuantity();
+    </script>
+</body>
+
+</html>
