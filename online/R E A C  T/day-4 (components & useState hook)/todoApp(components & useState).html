@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO APP</title>
+
+  <!-- Development -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .todo-container {
+      width: 80%;
+      display: flex;
+      justify-self: center;
+      height: auto;
+      padding: 20px;
+      flex-direction: column;
+    }
+
+    .input-section {
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 10px;
+      background-color: white;
+    }
+
+    .todo-input {
+      width: 70%;
+      height: 95%;
+      font-size: 1.8rem;
+      padding-left: 10px;
+      font-weight: 600;
+      color: blue;
+      border: 1.3px solid blue;
+    }
+
+    .todo-input:focus {
+      outline: 5px solid rgba(172, 172, 231, 0.833);
+    }
+
+    .todo-input::placeholder {
+      color: blue;
+    }
+
+    .add-todo-btn,
+    li button {
+      width: 20%;
+      height: 100%;
+      font-size: 1.8rem;
+      color: blue;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.3px solid blue;
+    }
+
+    .add-todo-btn:hover,
+    li button:hover {
+      outline: 5px solid rgba(172, 172, 231, 0.833);
+    }
+
+    .display-todos {
+      width: 100%;
+    }
+
+    ul {
+      margin-block: 40px;
+    }
+
+    li {
+      list-style: none;
+      font-weight: 600;
+      color: blue;
+      font-size: 2rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      height: 60px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    li input[type="checkbox"] {
+      width: 40px;
+      height: 40px;
+      margin-top: 10px;
+      accent-color: rgb(16, 2, 99);
+    }
+
+    li span {
+      width: 60%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+    }
+
+    li input[type="checkbox"]:checked+span {
+      text-decoration: line-through;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="todo-container"></div>
+  <script type="text/babel">
+    function Todo() {
+
+      let [todos, setTodos] = React.useState([]);
+      let [input, setInput] = React.useState('');
+      let [nextId, setNextId] = React.useState(1);
+
+      function handleInput() {
+        setInput(document.querySelector('.todo-input').value)
+      }
+
+      function addTodo() {
+        if (!input) return;
+        setTodos([...todos, { id: nextId, task: input, completed: false }]);
+        setNextId(nextId + 1);
+        setInput('');
+      }
+
+      function deleteTodo(id) {
+        setTodos(todos.filter(todo => todo.id !== id));
+      }
+
+      function handleCheckboxClick(id) {
+        setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
+      }
+
+      return (
+        <>
+          <div className="input-section">
+            <input type="text" value={input} className='todo-input' onChange={() => { handleInput() }} />
+            <button className='add-todo-btn' onClick={() => { addTodo() }}>Add Todo</button>
+          </div>
+          <div className="display-todos">
+            <ul>
+              {
+                todos.map((todo) => <li key={todo.id}> <input type="checkbox" checked={todo.completed} onChange={() => { handleCheckboxClick(todo.id) }} /> <span>{todo.task}</span> <button onClick={() => { deleteTodo(todo.id) }}>Delete</button></li>)
+              }
+            </ul>
+          </div>
+        </>
+      )
+    }
+
+    ReactDOM.render(<Todo />, document.querySelector('.todo-container'))
+  </script>
+</body>
+
+</html>
