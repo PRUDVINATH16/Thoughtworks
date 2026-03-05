@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSX Assigments (Event Handling)</title>
+
+  <!-- React, ReactDOM, babel -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <style>
+    * {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h3 {
+      color: red;
+      font-size: 1.8rem;
+    }
+
+    div,
+    button,
+    input {
+      font-size: 1.5rem;
+      padding: 15px 25px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h2>JSX Event Handling Assignment from Edupoly old-site</h2>
+
+  <!-- ASSIGNMENT 1 -->
+  <h3>1. Bind event handler to alert something on button click in JSX</h3>
+  <div class="assign-1"></div>
+  <script type="text/babel">
+    let btnHTML = <button onClick={() => { alert('Ouuch! This is Hard one!!') }}>Give a Hit</button>
+
+    ReactDOM.render(btnHTML, document.querySelector('.assign-1'));
+  </script>
+
+  <!-- ASSIGNMENT 2 -->
+  <h3>2. Console something on button click</h3>
+  <div class="assign-2"></div>
+  <script type="text/babel">
+    let btnHTML2 = <button onClick={() => { console.log('Ouuch! This is fine one!!') }}>Give a Click</button>
+
+    ReactDOM.render(btnHTML2, document.querySelector('.assign-2'));
+  </script>
+
+  <!-- ASSIGNMENT 3 -->
+  <h3>3. Console event object on button click</h3>
+  <div class="assign-3"></div>
+  <script type="text/babel">
+    let btnHTML3 = <button onClick={(ev) => { console.log(ev, event) }}>Give a Click</button>
+
+    ReactDOM.render(btnHTML3, document.querySelector('.assign-3'));
+  </script>
+
+  <!-- ASSIGNMENT 4 -->
+  <h3>4. Display the event object for a click on div with 300px width and
+    200px height with 2px border</h3>
+  <div class="assign-4"></div>
+  <script type="text/babel">
+    let containerHTML =
+      <div>
+        <div className='assign-4-DIV' style={{ width: '300px', height: '200px', border: '2px solid' }} onClick={(ev) => { console.log(ev) }}>Click Here Not that Button</div>
+
+        <button onClick={(ev) => {
+
+          // let keys = Object.keys(ev);
+          // let eventHTML = keys.map(key => ev[key])
+          // document.querySelector('.assign-4-DIV').innerHTML = eventHTML
+
+          // let objStr = JSON.stringify(ev);
+          // console.log(objStr)
+          // document.querySelector('pre').innerHTML = ev
+        }}>Give a Click</button>
+
+      </div >
+
+    ReactDOM.render(containerHTML, document.querySelector('.assign-4'));
+  </script>
+
+  <!-- ASSIGNMENT 5 -->
+  <h3>5. Console event object on button click</h3>
+  <div class="assign-5"></div>
+  <script type="text/babel">
+    let containerHTML2 = <div style={{ width: '300px', height: '200px', border: '2px solid' }} onClick={(ev) => {
+      console.log(ev.clientX, ev.clientY);
+      ev.target.textContent = `Click Here for ClientX and ClientY ------clientX:{${ev.clientX}}\nclientY:{${ev.clientY}}`;
+    }}>Click Here for clientX and clientY</div>
+
+    ReactDOM.render(containerHTML2, document.querySelector('.assign-5'));
+  </script>
+
+  <!-- ASSIGNMENT 6 -->
+  <h3>6. Display the text of div on click in console</h3>
+  <div class="assign-6"></div>
+  <script type="text/babel">
+    let containerHTML3 = <div style={{ width: '300px', height: '200px', border: '2px solid' }} onClick={(ev) => {
+      console.log(ev.target.textContent)
+    }}>Click Here for that (yes, that)</div>
+
+    ReactDOM.render(containerHTML3, document.querySelector('.assign-6'));
+  </script>
+
+  <!-- ASSIGNMENT 7 -->
+  <h3>7. Console the id of div on click
+  </h3>
+  <div class="assign-7"></div>
+  <script type="text/babel">
+    let containerHTML4 = <div id={'testing'} style={{ width: '300px', height: '200px', border: '2px solid' }} onClick={(ev) => {
+      console.log(ev.target.id)
+    }}>Learn't how to access the id of a container</div>
+
+    ReactDOM.render(containerHTML4, document.querySelector('.assign-7'));
+  </script>
+
+  <!-- ASSIGNMENT 8 -->
+  <h3>
+    8. Display the text of h1 on click in console
+  </h3>
+  <div class="assign-8"></div>
+  <script type="text/babel">
+    let containerHTML5 = <div>
+      <h2 onClick={(ev) => { console.log(ev.target.textContent) }}>This is the heading you need to click</h2>
+      <div style={{ width: '300px', height: '200px', border: '2px solid' }}>Saradha, Just for fun man "Click on heading to disply content in console"</div>
+    </div>
+
+    ReactDOM.render(containerHTML5, document.querySelector('.assign-8'));
+  </script>
+
+  <!-- ASSIGNMENT 9 -->
+  <h3>
+    9. Console respective button label click
+  </h3>
+  <div class="assign-9"></div>
+  <script type="text/babel">
+    let containerHTML6 = <div>
+      <h2 onClick={(ev) => { console.log(ev.target.textContent) }}>This is the heading you need to click</h2>
+      <div style={{ width: '300px', height: '200px', border: '2px solid' }}>Saradha, Just for fun man "Click on heading to disply content in console"</div>
+      <button onClick={(ev) => { console.log(ev.target.textContent, ev) }}>you see this there</button>
+    </div>
+
+    ReactDOM.render(containerHTML6, document.querySelector('.assign-9'));
+  </script>
+
+  <!-- ASSIGNMENT 10, 11, 12 -->
+  <h3>10. Console text box value on button click</h3>
+  <h3>11. Display text box value in h1 on button click</h3>
+  <h3>12. Display text box value in uppercase h1 on button click</h3>
+
+  <h2 class="for-upper-case"></h2>
+  <div class="assign-10"></div>
+  <script type="text/babel">
+    let containerHTML7 = <div>
+      <input type="text" className='input-1' />
+      <p className='p-1'></p>
+      <button onClick={() => {
+        document.querySelector('.p-1').textContent = "Here you go, " + document.querySelector('.input-1').value;
+        document.querySelector('.for-upper-case').textContent = document.querySelector('.input-1').value.toUpperCase();
+      }}>get that</button>
+    </div>
+
+    ReactDOM.render(containerHTML7, document.querySelector('.assign-10'));
+  </script>
+
+  <!-- ASSIGNMENT 13 -->
+  <h3>13. Display text box value in uppercase h1 on textbox keyup</h3>
+  <h2 class="for-upper-case2">Here you go,</h2>
+  <div class="assign-13"></div>
+  <script type="text/babel">
+    let containerHTML8 = <div>
+      <input type="text" onKeyUp={
+        (ev) => {
+          document.querySelector('.for-upper-case2').textContent = ev.target.value.toUpperCase();
+        }} />
+    </div>
+
+    ReactDOM.render(containerHTML8, document.querySelector('.assign-13'));
+  </script>
+
+  <!-- ASSIGNMENT 14 -->
+  <h3>14. Display text box value in uppercase h1 on textbox blur</h3>
+  <h2 class="for-upper-case3">Here you go,</h2>
+  <div class="assign-14"></div>
+  <script type="text/babel">
+    let containerHTML9 = <div>
+      <input type="text" onBlur={
+        (ev) => {
+          document.querySelector('.for-upper-case3').textContent = ev.target.value.toUpperCase();
+        }} />
+    </div>
+
+    ReactDOM.render(containerHTML9, document.querySelector('.assign-14'));
+  </script>
+
+  <!-- ASSIGNMENT 15 -->
+  <h3>15. Display text box value in h1 on textbox keyup event</h3>
+  <h2 class="for-upper-case3">Here you go, !! ALREADY COMPLETED !!</h2>
+  <div class="assign-15">!! ALREADY COMPLETED !!</div>
+  <script type="text/babel">
+    let containerHTML10 = <div>
+      <input type="text" onBlur={
+        (ev) => {
+          // document.querySelector('.for-upper-case3').textContent = ev.target.value.toUpperCase();
+        }} value='!! ALREADY COMPLETED !!' />
+    </div>
+
+    ReactDOM.render(containerHTML10, document.querySelector('.assign-15'));
+  </script>
+
+  <!-- ASSIGNMENT 16 -->
+  <h3>16. Reset the textbox text on a button click</h3>
+  <div class="assign-16"></div>
+  <script type="text/babel">
+    let containerHTML11 = <div>
+      <input type="text" className='input-2' />
+      <button onClick={
+        () => {
+          document.querySelector('.input-2').value = '';
+        }}>clear the text box</button>
+    </div>
+
+    ReactDOM.render(containerHTML11, document.querySelector('.assign-16'));
+  </script>
+
+  <!-- ASSIGNMENT 17 -->
+  <h3>17. Display addition of two text box values in h1 on textbox on button click</h3>
+  <div class="assign-17"></div>
+  <script type="text/babel">
+    let containerHTML12 = <div>
+      <input type="text" className='input-3' />
+      <input type="text" className='input-4' />
+      <h4 className='result-assign-17'></h4>
+      <button onClick={
+        () => {
+          document.querySelector('.result-assign-17').textContent = Number(document.querySelector('.input-3').value) + Number(document.querySelector('.input-4').value);
+        }}>Add them</button>
+    </div>
+
+    ReactDOM.render(containerHTML12, document.querySelector('.assign-17'));
+  </script>
+
+  <!-- ASSIGNMENT 18 -->
+  <h3>18. Display substraction of two text box values in h1 on textbox on button click</h3>
+  <div class="assign-18"></div>
+  <script type="text/babel">
+    let containerHTML13 = <div>
+      <input type="text" className='input-5' />
+      <input type="text" className='input-6' />
+      <h4 className='result-assign-18'></h4>
+      <button onClick={
+        () => {
+          document.querySelector('.result-assign-18').textContent = Number(document.querySelector('.input-5').value) - Number(document.querySelector('.input-6').value);
+        }}>Subtract them</button>
+    </div>
+
+    ReactDOM.render(containerHTML13, document.querySelector('.assign-18'));
+  </script>
+
+  <!-- ASSIGNMENT 19 -->
+  <h3>19. Display result of two text box values in h1 on textbox on
+    multiplication and division buttons</h3>
+  <div class="assign-19"></div>
+  <script type="text/babel">
+    let containerHTML14 = <div>
+      <input type="text" className='input-7' />
+      <input type="text" className='input-8' />
+      <h4 className='result-assign-19'></h4>
+      <button onClick={
+        () => {
+          document.querySelector('.result-assign-19').textContent = Number(document.querySelector('.input-7').value) * Number(document.querySelector('.input-8').value);
+        }}>Multiply them</button>
+      <button onClick={
+        () => {
+          document.querySelector('.result-assign-19').textContent = Number(document.querySelector('.input-7').value) / Number(document.querySelector('.input-8').value);
+        }}>Divide them</button>
+    </div>
+
+    ReactDOM.render(containerHTML14, document.querySelector('.assign-19'));
+  </script>
+
+  <!-- ASSIGNMENT 20 -->
+  <h3>20.Display radio button value on check</h3>
+  <div class="assign-20"></div>
+  <script type="text/babel">
+
+    function handleRadioClick(ev) {
+      if(ev.target.tagName == 'INPUT' || ev.target.tagName == 'LABEL') {
+        document.querySelector('.result-assign-20').textContent = ev.target.value;
+      }
+    }
+
+    let containerHTML15 = <div>
+      <div className="radio-container" onClick={(ev) => { handleRadioClick(ev) }}>
+        <input style={{marginLeft: '35px', marginRight: '10px'}} type="radio" value="Virat Kohli" id='abc' name='same'/><label htmlFor="abc">Virat Kohli</label>
+        <input style={{marginLeft: '35px', marginRight: '10px'}} type="radio" value="MS Dhoni" id='aabc' name='same' /><label htmlFor="aabc">MS Dhoni</label>
+        <input style={{marginLeft: '35px', marginRight: '10px'}} type="radio" value="Sachin" id='aaabc' name='same' /><label htmlFor="aaabc">Sachin</label>
+      </div>
+      <h4 className='result-assign-20'></h4>
+    </div>
+
+    ReactDOM.render(containerHTML15, document.querySelector('.assign-20'));
+  </script>
+
+  <!-- ASSIGNMENT 21 -->
+  <h3>20.Display radio button value on check</h3>
+  <div class="assign-21"></div>
+  <script type="text/babel">
+
+    function handleRadioClick(ev) {
+      if(ev.target.tagName == 'INPUT' || ev.target.tagName == 'LABEL') {
+        if(ev.target.value == 'Virat Kohli') {
+          document.querySelector('.result-assign-21').innerHTML = '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXd7IOQ0NKyGMznUdvuNfPqT1PjyLLWs2PlA&s"/>'
+        } else if(ev.target.value == 'MS Dhoni') {
+          document.querySelector('.result-assign-21').innerHTML = '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlUHTyVfbyG3PgcyaRzLI_KE9HHqUqgrFIFQ&s"/>'
+        } else {
+          document.querySelector('.result-assign-21').innerHTML = '<img src="https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316400/316486.6.png"/>'
+        }
+      }
+    }
+
+    let containerHTML16 = <div>
+      <div className="radio-container" onClick={(ev) => { handleRadioClick(ev) }}>
+        <input style={{marginLeft: '35px', marginRight: '10px'}} type="radio" value="Virat Kohli" id='abcc' name='same'/><label htmlFor="abcc">Virat Kohli</label>
+        <input style={{marginLeft: '35px', marginRight: '10px'}} type="radio" value="MS Dhoni" id='aabcc' name='same' /><label htmlFor="aabcc">MS Dhoni</label>
+        <input style={{marginLeft: '35px', marginRight: '10px'}} type="radio" value="Sachin" id='aaabcc' name='same' /><label htmlFor="aaabcc">Sachin</label>
+      </div>
+      <h4 className='result-assign-21'></h4>
+    </div>
+
+    ReactDOM.render(containerHTML16, document.querySelector('.assign-21'));
+  </script>
+
+</body>
+
+</html>

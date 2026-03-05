@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSX Assigments (Event Handling)</title>
+
+  <!-- React, ReactDOM, babel -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <style>
+    * {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h3 {
+      color: rgb(19, 103, 58);
+      font-size: 1.8rem;
+    }
+
+    div,
+    button,
+    input {
+      font-size: 1.5rem;
+      padding: 15px 25px;
+    }
+
+    .inline-block-it {
+      display: inline-block;
+      font-size: 1.2rem;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h2>JSX STYLING Assignment from Edupoly old-site</h2>
+
+  <!-- ASSIGNMENT 1 -->
+  <h3>1. Apply red color to JSX h1 Element</h3>
+  <div class="assign-1"></div>
+  <script type="text/babel">
+    let assg1HTML = <h2 style={{ color: 'red' }}>Applied Color Red From JSX</h2>
+
+    ReactDOM.render(assg1HTML, document.querySelector('.assign-1'));
+  </script>
+
+  <!-- ASSIGNMENT 2 -->
+  <h3>2. Apply red color to JSX h1 with green background</h3>
+  <div class="assign-2"></div>
+  <script type="text/babel">
+    let assg2HTML = <h2 style={{ color: 'red', backgroundColor: 'green' }}>Applied Color Red And Backgound Green From JSX</h2>
+
+    ReactDOM.render(assg2HTML, document.querySelector('.assign-2'));
+  </script>
+
+  <!-- ASSIGNMENT 3, 5 -->
+  <h3>3. Display each array element in flex boxes</h3>
+  <h3>4. Display each string of array in flex boxes</h3>
+  <div class="assign-3"></div>
+  <script type="text/babel">
+    let arrayElements = ['ramesh', 'suresh', 'mahesh']
+    let assg3HTML = <div style={{ display: 'flex', gap: '10px' }}>
+      {
+        arrayElements.map((ele) => <div style={{ border: '2px solid', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px', height: '60px' }}>{ele}</div>)
+      }
+    </div>
+
+    ReactDOM.render(assg3HTML, document.querySelector('.assign-3'));
+  </script>
+
+  <!-- ASSIGNMENT 5 -->
+  <h3>5. Display each object properties</h3>
+  <div class="assign-5"></div>
+  <script type="text/babel">
+
+    let ob = {
+      firstname: "Prudvi",
+      lastname: "Patnam",
+      gender: "male",
+      age: 19
+    }
+
+    let assg5HTML = <div style={{ display: 'flex', gap: '10px' }}>
+      <ul>
+        <li>{ob.firstname}</li>
+        <li>{ob.lastname}</li>
+        <li>{ob.gender}</li>
+        <li>{ob.age}</li>
+      </ul>
+    </div>
+
+    ReactDOM.render(assg5HTML, document.querySelector('.assign-5'));
+  </script>
+
+  <!-- ASSIGNMENT 6 -->
+  <h3>6. Display each array object in flex boxes</h3>
+  <div class="assign-6"></div>
+  <script type="text/babel">
+
+    let ob2 = {
+      firstname: "Prudvi",
+      lastname: "Patnam",
+      gender: "male",
+      age: 19
+    }
+
+    let objKeys = Object.keys(ob2);
+
+    let assg6HTML = <div style={{ display: 'flex', gap: '10px' }}>
+      {
+        objKeys.map(key => <div style={{ border: '2px solid', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '150px', height: '60px' }}>{ob2[key]}</div>)
+      }
+    </div>
+
+    ReactDOM.render(assg6HTML, document.querySelector('.assign-6'));
+  </script>
+
+
+  <!-- ASSIGNMENT 7 -->
+  <h3>7. Display each array object in flex boxes with respective gender images</h3>
+  <div class="assign-7"></div>
+  <script type="text/babel">
+
+    const users = [
+      { firstname: "Prudvi", lastname: "Patnam", gender: "male", age: 19 },
+      { firstname: "Rahul", lastname: "Reddy", gender: "male", age: 21 },
+      { firstname: "Anil", lastname: "Sharma", gender: "female", age: 20 },
+      { firstname: "Kiran", lastname: "Kumar", gender: "male", age: 22 },
+      { firstname: "Sneha", lastname: "Patel", gender: "female", age: 19 }
+    ];
+
+    const genderImages = { male: 'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?semt=ais_rp_progressive&w=740&q=80', female: 'https://img.freepik.com/free-vector/woman-with-braided-hair-illustration_1308-174675.jpg?semt=ais_rp_progressive&w=740&q=80' }
+
+    let assg7HTML = <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+      {
+        users.map(user => <div style={{ border: '2px solid', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '400px', height: 'fit-content' }}>
+          <div style={{display: 'flex', flexDirection: 'column'}}><span><h2 className='inline-block-it'>Firstname</h2>: {user.firstname}</span>
+          <span><h2 className='inline-block-it'>Lastname</h2>: {user.lastname}</span>
+          <span><h2 className='inline-block-it'>Gender</h2>: {user.gender}</span>
+          <span><h2 className='inline-block-it'>Age</h2>: {user.age}</span></div>
+          <div><span>{user.gender == 'male' ? <img width="100" height="100" src={genderImages.male} /> : <img width="100" height="100" src={genderImages.female} />} </span></div>
+        </div>)
+      }
+    </div>
+
+    ReactDOM.render(assg7HTML, document.querySelector('.assign-7'));
+  </script>
+
+
+</body>
+
+</html>
