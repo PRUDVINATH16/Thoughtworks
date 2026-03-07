@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- Development -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script src="products.js"></script>
+
+  <style>
+
+    body {
+      margin: 0;
+      background-color: rgb(235, 233, 233);
+    }
+
+    .product-container {
+      width: 80%;
+      height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-self: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .product-card {
+      width: 300px;
+      height: 400px;
+      background-color: lightblue;
+      border-radius: 8px;
+      border: 3px solid white;
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .product-card img {
+      height: 75%;
+    }
+
+    .product-card h2 {
+      font-size: 1rem;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="root"></div>
+
+  <script type="text/babel">
+
+    function ProductContainerComponent() {
+
+      return(
+        <div className='product-container'>
+          {
+            all_products.products.map( product => <ProductComponent product={ product}/>)
+          }  
+        </div>
+      )
+    }
+
+    function ProductComponent({product}) {
+
+      return (
+        <div key={product.id} className='product-card'>
+          <img src={product.thumbnail} />
+          <h2>{product.title}</h2>
+          <h3>{product.price}</h3>  
+        </div>
+      )
+    }
+
+    ReactDOM.render( <ProductContainerComponent />, document.querySelector('.root'));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Test</title>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      width: 100%;
+      height: 100vh;
+      background-color: rgb(225, 238, 225);
+    }
+
+    .stats-container {
+      width: 80%;
+      display: grid;
+      justify-self: center;
+      margin-top: 20px;
+      border: 2.5px solid green;
+      border-radius: 15px;
+      height: 150px;
+      grid-template-columns: 1fr 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .stat {
+      background-color: lightgreen;
+      color: white;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: column;
+      padding-block: 20px;
+      border-right: 2px solid green;
+      font-weight: 500;
+    }
+
+    .error {
+      border-right: none;
+    }
+
+    .typing-container {
+      width: 80%;
+      margin-top: 30px;
+      padding: 25px;
+      border: 2.5px solid green;
+      border-radius: 15px;
+      justify-self: center;
+      background: rgba(144, 238, 144, 0.25);
+      transition: background .25s ease;
+    }
+
+    .typing-container:hover {
+      background: rgba(144, 238, 144, 0.35);
+    }
+
+    .statement {
+      margin-top: 10px;
+      line-height: 1.7;
+      font-size: 1.1rem;
+    }
+
+    .statement-input {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      border: 2px solid green;
+      border-radius: 10px;
+      outline: none;
+      font-size: 1rem;
+      transition: background .25s ease;
+    }
+
+    .statement-input:focus {
+      background: rgba(144, 238, 144, 0.25);
+    }
+
+    .timer {
+      background: lightgreen;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-left: 10px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="root"></div>
+
+  <script type="text/babel">
+
+    function App() {
+
+      const statements = [
+        "Water flows quietly yet shapes mountains over time. It teaches patience, persistence, and the quiet strength hidden in gentle movement.",
+        "Air is invisible but powerful, carrying breath, storms, and whispers across the world, reminding us that unseen forces often shape reality.",
+        "Land stands firm beneath our feet, holding forests, cities, and history, grounding life with stability, nourishment, and enduring strength.",
+        "Fire dances with fierce energy, creating warmth, light, and destruction, proving that power can both build civilizations and burn them down.",
+        "Sky stretches endlessly above, holding clouds, stars, and dreams, inviting humans to wonder, explore, and question the vast universe."
+      ];
+
+      const [statement, setStatement] = React.useState(
+        statements[Math.floor(Math.random() * statements.length)]
+      );
+
+      const [displayStats, setDisplayStats] = React.useState(false);
+      const [wpm, setWPM] = React.useState('00');
+      const [accuracy, setAccuracy] = React.useState('00');
+      const [errors, setErros] = React.useState('00');
+
+      let timerInterval;
+
+      function restartTest() {
+
+        setStatement(
+          statements[Math.floor(Math.random() * statements.length)]
+        );
+
+        setDisplayStats(false);
+        setWPM('00');
+        setAccuracy('00');
+        setErros('00');
+
+      }
+
+      function Stats() {
+
+        return (
+
+          <div>
+
+            <div className='stats-container'>
+              <div className="stat"><span>WPM</span>{wpm}</div>
+              <div className="stat"><span>ACCURACY</span>{accuracy}%</div>
+              <div className="stat error"><span>ERRORS</span>{errors}</div>
+            </div>
+
+            <div className="flex justify-center mt-6">
+
+              <button
+                onClick={restartTest}
+                className="px-6 py-2 border-2 border-green-600 rounded-lg hover:bg-green-200 transition"
+              >
+                Try Again
+              </button>
+
+            </div>
+
+          </div>
+
+        )
+
+      }
+
+      function Typing() {
+
+        const [timer, setTimer] = React.useState(0);
+        let [minute, setMinute] = React.useState(false);
+
+        function handleTyping(ev) {
+
+          if (ev.target.value.length === 1) {
+
+            startTimer();
+
+            timerInterval = setInterval(() => {
+
+              setTimer(prev => {
+
+                if (prev === 59) {
+                  setMinute(true);
+                  return 0;
+                }
+
+                return prev + 1;
+
+              });
+
+            }, 1000);
+
+          }
+
+          let typedWords = ev.target.value.trim().split('');
+          let actualWords = statement.split('');
+
+          if (typedWords.length >= actualWords.length) {
+            endTimer();
+          }
+
+        }
+
+        function startTimer() {
+
+          setTimeout(() => {
+
+            endTimer();
+
+          }, 120000);
+
+        }
+
+        function endTimer() {
+
+          clearInterval(timerInterval);
+
+          let typedText = document.querySelector('.statement-input').value.trim();
+
+          let wordsTyped = typedText.split(' ');
+          let actualWords = statement.split(' ');
+
+          let Errors = 0;
+
+          let total = Math.min(wordsTyped.length, actualWords.length);
+
+          for (let i = 0; i < total; i++) {
+
+            if (wordsTyped[i] !== actualWords[i]) {
+              Errors++;
+            }
+
+          }
+
+          let Accuracy = Math.round(((total - Errors) / total) * 100);
+
+          let timeInMinutes = (minute ? 1 : 0) + (timer / 60);
+
+          let correctWords = total - Errors;
+
+          let WPM = Math.round(correctWords / timeInMinutes);
+
+          setWPM(WPM);
+          setAccuracy(Accuracy);
+          setErros(Errors);
+
+          setDisplayStats(true);
+
+        }
+
+        return (
+
+          <div className="typing-container">
+
+            <div className="flex justify-between items-center">
+
+              <h2 className="text-lg font-medium">
+                Typing Test
+              </h2>
+
+              <span className='timer'>
+                {minute ? '01' : '00'}:{timer <= 9 ? '0' + timer : timer}
+              </span>
+
+            </div>
+
+            <p className="statement">
+              {statement}
+            </p>
+
+            <input
+              type="text"
+              placeholder="Start typing here..."
+              onInput={handleTyping}
+              className="statement-input"
+            />
+
+          </div>
+
+        )
+
+      }
+
+      return (
+        displayStats ? <Stats /> : <Typing />
+      )
+
+    }
+
+    ReactDOM.render(<App />, document.querySelector('.root'));
+
+  </script>
+
+</body>
+
+</html>
