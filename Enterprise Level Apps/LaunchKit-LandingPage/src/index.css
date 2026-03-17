@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cream: #f5f0e8;
+  --cream-d: #ede7db;
+  --ink: #0e0e0e;
+  --ink-mid: #4a4a4a;
+  --ink-soft: #999490;
+  --rule: rgba(14, 14, 14, 0.1);
+  --radius: 6px;
+  --head: 'Playfair Display', Georgia, serif;
+  --body: 'Instrument Sans', sans-serif;
+}
+
+body {
+  background-color: var(--cream);
+  font-family: var(--body);
+}
+
+h1, h2 {
+  font-family: var(--head);
+}

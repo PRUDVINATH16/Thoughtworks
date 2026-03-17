@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaunchKit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream:    #f5f0e8;
+      --cream-d:  #ede7db;
+      --ink:      #0e0e0e;
+      --ink-mid:  #4a4a4a;
+      --ink-soft: #999490;
+      --rule:     rgba(14,14,14,0.1);
+      --radius:   6px;
+      --head:     'Playfair Display', Georgia, serif;
+      --body:     'Instrument Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a    { text-decoration: none; color: inherit; }
+    ul   { list-style: none; }
+    button { cursor: pointer; font-family: var(--body); border: none; outline: none; background: none; }
+
+    /* ─────────────────────────── NAVBAR */
+    #navbar {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 3rem;
+      transition: background 0.4s, border-color 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    #navbar.scrolled {
+      background: rgba(245,240,232,0.88);
+      backdrop-filter: blur(20px);
+      border-color: var(--rule);
+    }
+
+    .nav-logo {
+      font-family: var(--head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2.4rem;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 1px;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.5; }
+
+    .hamburger {
+      display: none;
+      font-size: 1.3rem;
+      color: var(--ink);
+    }
+
+    /* ─────────────────────────── BREADCRUMBS */
+    .breadcrumbs {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .breadcrumbs .sep { opacity: 0.4; }
+    .breadcrumbs .active { color: var(--ink); }
+
+    /* ─────────────────────────── HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 10rem 3rem 6rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: rise 0.8s cubic-bezier(0.22,1,0.36,1) forwards 0.15s;
+    }
+
+    .hero-heading {
+      font-family: var(--head);
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      color: var(--ink);
+    }
+    .hero-heading em {
+      font-style: italic;
+      color: var(--ink-mid);
+    }
+
+    .hero-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+    }
+
+    .hero-sub {
+      max-width: 380px;
+      font-size: 1rem;
+      color: var(--ink-mid);
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.8rem;
+    }
+
+    .btn-ink {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s;
+    }
+    .btn-ink:hover { opacity: 0.75; }
+
+    .btn-outline {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .btn-outline:hover { color: var(--ink); }
+
+    .hero-stat {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+    }
+
+    /* ─────────────────────────── FEATURES */
+    #features {
+      padding: 7rem 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .features-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 5rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .label-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1rem;
+    }
+
+    .features-heading {
+      font-family: var(--head);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      max-width: 480px;
+    }
+
+    .features-sub {
+      max-width: 300px;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      align-self: flex-end;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--rule);
+    }
+
+    .feature-card {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.2s;
+    }
+    .feature-card:nth-child(3n) { border-right: none; }
+    .feature-card:nth-last-child(-n+3) { border-bottom: none; }
+    .feature-card:hover { background: var(--cream-d); }
+
+    .f-num {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--ink-soft);
+      margin-bottom: 2rem;
+    }
+
+    .f-icon { font-size: 1.6rem; margin-bottom: 1.2rem; display: block; }
+
+    .f-title {
+      font-family: var(--head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.3px;
+    }
+
+    .f-desc { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.7; }
+
+    /* ─────────────────────────── JUMBOTRON */
+    #jumbotron {
+      padding: 8rem 3rem;
+      background: var(--ink);
+      color: var(--cream);
+    }
+
+    .jumbo-inner {
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .jumbo-heading {
+      font-family: var(--head);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      max-width: 520px;
+    }
+    .jumbo-heading em {
+      font-style: italic;
+      opacity: 0.45;
+    }
+
+    .jumbo-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 260px;
+    }
+
+    .jumbo-sub {
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.5);
+      line-height: 1.75;
+    }
+
+    .btn-cream {
+      background: var(--cream);
+      color: var(--ink);
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s;
+      display: inline-block;
+    }
+    .btn-cream:hover { opacity: 0.8; }
+
+    /* ─────────────────────────── FOMO */
+    #fomo {
+      padding: 5rem 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .fomo-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .fomo-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1rem;
+    }
+
+    .fomo-count {
+      font-family: var(--head);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1;
+    }
+
+    .fomo-count span {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--ink-mid);
+      letter-spacing: -0.3px;
+      margin-left: 0.6rem;
+      font-family: var(--body);
+    }
+
+    .logo-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 3rem;
+      align-items: center;
+    }
+
+    .logo-item {
+      font-family: var(--head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: rgba(14,14,14,0.15);
+      letter-spacing: -0.3px;
+      transition: color 0.2s;
+    }
+    .logo-item:hover { color: var(--ink-mid); }
+
+    /* ─────────────────────────── FOOTER */
+    #footer { padding: 4rem 3rem 2.5rem; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-logo {
+      font-family: var(--head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      max-width: 220px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-col ul { display: flex; flex-direction: column; gap: 0.65rem; }
+    .footer-col a   { font-size: 0.88rem; color: var(--ink-mid); transition: color 0.2s; }
+    .footer-col a:hover { color: var(--ink); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--rule);
+      padding-top: 1.5rem;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+    }
+
+    /* ─────────────────────────── KEYFRAMES */
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─────────────────────────── MOBILE */
+    @media (max-width: 768px) {
+      #navbar { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--cream); border-bottom: 1px solid var(--rule); padding: 1.5rem; flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: block; }
+      #hero      { padding: 8rem 1.5rem 4rem; }
+      #features  { padding: 4rem 1.5rem; }
+      #jumbotron { padding: 5rem 1.5rem; }
+      #fomo      { padding: 4rem 1.5rem; }
+      #footer    { padding: 3rem 1.5rem 2rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card  { border-right: none !important; border-bottom: 1px solid var(--rule) !important; }
+      .feature-card:last-child { border-bottom: none !important; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header id="navbar">
+    <a href="#" class="nav-logo">LaunchKit</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#features">Features</a>
+      <a href="#jumbotron">Pricing</a>
+      <a href="#">Docs</a>
+      <a href="#">Blog</a>
+      <a href="#" class="nav-cta">Get Started</a>
+    </nav>
+    <button class="hamburger" id="hamburger">☰</button>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <nav class="breadcrumbs">
+        <a href="#">Home</a><span class="sep">/</span>
+        <a href="#">Products</a><span class="sep">/</span>
+        <a href="#" class="active">LaunchKit</a>
+      </nav>
+
+      <h1 class="hero-heading">Ship faster.<br><em>Break nothing.</em></h1>
+
+      <div class="hero-row">
+        <p class="hero-sub">LaunchKit gives your team the tools to go from idea to production in hours, not weeks. One platform. Zero drama.</p>
+        <div class="hero-actions">
+          <button class="btn-ink">Start for free</button>
+          <button class="btn-outline">Watch demo →</button>
+          <p class="hero-stat">No card required &nbsp;·&nbsp; Free tier forever</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="features-top">
+      <div>
+        <p class="label-tag">What you get</p>
+        <h2 class="features-heading">Everything you need.<br>Nothing you don't.</h2>
+      </div>
+      <p class="features-sub">Six pillars that keep your product healthy and fast at any scale.</p>
+    </div>
+    <div class="features-grid" id="featuresGrid"></div>
+  </section>
+
+  <!-- JUMBOTRON -->
+  <section id="jumbotron">
+    <div class="jumbo-inner">
+      <h2 class="jumbo-heading">Your next big<br>launch starts<br><em>right here.</em></h2>
+      <div class="jumbo-right">
+        <p class="jumbo-sub">Join 12,000+ developers who cut their release cycle in half. Trusted by startups and Fortune 500s alike.</p>
+        <a href="#" class="btn-cream">Get early access →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOMO -->
+  <section id="fomo">
+    <div class="fomo-inner">
+      <div>
+        <p class="fomo-tag">🔥 Beta spots remaining</p>
+        <div class="fomo-count"><span id="spotCount">37</span><span>spots left</span></div>
+      </div>
+      <div class="logo-strip" id="logoStrip"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">LaunchKit</span>
+        <p class="footer-tagline">The fastest way to ship production-ready software. Built for modern teams.</p>
+      </div>
+      <div id="footerCols" style="display:contents"></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 LaunchKit Inc.</span>
+      <span>Crafted with care.</span>
+    </div>
+  </footer>
+
+  <script>
+    const FEATURES = [
+      { icon: '⚡', title: 'Blazing Fast',      desc: 'Deploy in seconds with our global edge network. P99 latency under 50ms guaranteed.' },
+      { icon: '🔒', title: 'Secure by Default', desc: 'SOC2 compliant. End-to-end encryption. Role-based access control built in.' },
+      { icon: '🧩', title: 'Modular API',        desc: 'Pick only what you need. Our composable API adapts to your stack seamlessly.' },
+      { icon: '📊', title: 'Live Analytics',     desc: 'Real-time dashboards and alerts. Know what\'s happening before your users do.' },
+      { icon: '🌍', title: 'Global CDN',         desc: '200+ edge locations worldwide. Your users are always close to the data.' },
+      { icon: '🤝', title: 'Team Tools',         desc: 'Comments, approvals, and audit logs. Built for teams, not lone wolves.' },
+    ]
+    const LOGOS = ['Stripe', 'Vercel', 'Linear', 'Notion', 'Figma', 'GitHub']
+    const FOOTER_LINKS = {
+      Product: ['Features', 'Changelog', 'Roadmap', 'Pricing'],
+      Company: ['About', 'Blog', 'Careers', 'Press'],
+      Legal:   ['Privacy', 'Terms', 'Security', 'Cookies'],
+    }
+
+    // Features
+    const grid = document.getElementById('featuresGrid')
+    FEATURES.forEach((f, i) => {
+      const el = document.createElement('div')
+      el.className = 'feature-card'
+      el.innerHTML = `<p class="f-num">0${i+1}</p><span class="f-icon">${f.icon}</span><h3 class="f-title">${f.title}</h3><p class="f-desc">${f.desc}</p>`
+      grid.appendChild(el)
+    })
+
+    // Logos
+    const strip = document.getElementById('logoStrip')
+    LOGOS.forEach(n => { const s = document.createElement('span'); s.className = 'logo-item'; s.textContent = n; strip.appendChild(s) })
+
+    // Footer
+    const fc = document.getElementById('footerCols')
+    Object.entries(FOOTER_LINKS).forEach(([h, links]) => {
+      const col = document.createElement('div')
+      col.className = 'footer-col'
+      col.innerHTML = `<h4>${h}</h4><ul>${links.map(l=>`<li><a href="#">${l}</a></li>`).join('')}</ul>`
+      fc.appendChild(col)
+    })
+
+    // Scroll
+    window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30))
+
+    // Hamburger
+    document.getElementById('hamburger').addEventListener('click', function() {
+      const open = document.getElementById('navLinks').classList.toggle('open')
+      this.textContent = open ? '✕' : '☰'
+    })
+
+    // FOMO
+    let spots = 37
+    const spotEl = document.getElementById('spotCount')
+    setInterval(() => { spots = spots > 28 ? spots - 1 : 37; spotEl.textContent = spots }, 3500)
+  </script>
+</body>
+</html>
