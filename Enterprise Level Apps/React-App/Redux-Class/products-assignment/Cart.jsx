@@ -27,7 +27,7 @@ function Cart({ reducer: { cart }, dispatch }) {
         }
       </div>
       <div className="payment-price">
-        <p><span>{getTotal()}</span></p>
+        <p><span>${getTotal()}</span></p>
       </div>
       <button className="gen-in-btn">Generate Invoice</button>
     </div>
