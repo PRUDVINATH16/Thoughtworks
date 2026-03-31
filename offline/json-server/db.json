@@ -29,5 +29,16 @@
       "id": 1774887385712
     }
   ],
-  "students": []
+  "students": [
+    {
+      "firstname": "Hello",
+      "lastname": "wo",
+      "age": "90",
+      "gender": "male",
+      "tech": [
+        "HTML/CSS"
+      ],
+      "id": 2
+    }
+  ]
 }

@@ -14,7 +14,7 @@ function Todo() {
 
   useEffect( () => {
     getLatestTodos();
-  }, [getLatestTodos]);
+  }, []);
 
   return (
     <div>
