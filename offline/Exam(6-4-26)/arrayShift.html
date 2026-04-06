@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    let arr = [10, 20, 30, 40, 50, 60, 70];
+    let positions = 3;
+
+    console.log(arr)
+    /*     
+        // Method 1
+        function shiftLeft(arr) {
+          let temp = arr[0]
+          for(i = 0; i < arr.length; i++) {
+            arr[i] = arr[i+1];
+          }
+          arr[arr.length-1] = temp;
+        }
+    
+        for(let i = 0; i < positions; i++) {
+          console.log(i, positions, 'called')
+          shiftLeft(arr);
+        }
+    
+     */
+
+    /*  
+    //  Method 2
+    function splitShift(arr, positions) {
+      if (positions == arr.length) return;
+      while (positions > arr.length) {
+        positions = positions - arr.length;
+      }
+
+      let leftArray = arr.slice(0, positions+1);
+      let rightArray = arr.slice(positions + 1, arr.length);
+      arr = [...rightArray, ...leftArray];
+      console.log(arr);
+    }
+
+    splitShift(arr, positions);
+
+    */
+
+    /* 
+    // Method 3
+    for(let i = 0; i<positions; i++) {
+      arr.unshift(arr.pop())
+    }
+    */        
+
+    /* 
+    // Method 4
+    for(let i = 0; i < positions; i++) {
+      arr.push(arr.shift())
+    }
+    */
+    console.log(arr);
+
+  </script>
+</body>
+
+</html>
