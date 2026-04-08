@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<htmlc lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+
+      // Second Largest of 3
+
+      // let a = 17, b = 20, c = 15;
+      // if(a > b && a < c || a > c && a < b) {
+      //   console.log('a is second largest')
+      // } else if(b > a && b < c || b > c && b < a) {
+      //   console.log('b is second largest')
+      // } else if(c > b && c < a || c > a && c < b) {
+      //   console.log('c is second largest')
+      // }
+
+      // Triangle Validity + Type
+
+      // let a = +prompt('Enter side one: ');
+      // let b = +prompt('Enter side two: ');
+      // let c = +prompt('Enter side three: ');
+      // if (a + b <= c || a + c <= b || b + c <= a) {
+      //   console.log('Triangle is not Valid, by this sides...');
+      // } else {
+      //   if(a == b && b == c) {
+      //     console.log('Equilateral Triangle')
+      //   } else if(a == b || b == c || c == a) {
+      //     console.log('Isosceles Triangle')
+      //   } else {
+      //     console.log('Scalene Triangle');
+      //   }
+      // }
+
+      // Even Odd (even negative)
+
+      // let number = +prompt('Enter a number: ');
+      // let remainder = number % 2;
+
+      /* 
+      // WRONG LOGIN
+        if (remainder == 0) {
+          console.log('Positive Even');
+        } else if (remainder == -0) {
+          console.log('Negative Even');
+        } else if (remainder == -1) {
+          console.log('Negative Odd');
+        } else if (remainder == 1) {
+          console.log('Positive Odd');
+        } else {
+          console.log('Neutral')
+        }
+      */
+
+      // if (number == 0) {
+      //   console.log('Neutral');
+      // } else {
+      //   if (number >= 0) {
+      //     if (remainder == 0) {
+      //       console.log('Positive Even');
+      //     } else {
+      //       console.log('Positive Odd');
+      //     }
+      //   } else {
+      //     if (remainder <= 0) {
+      //       if (remainder == -0) {
+      //         console.log('Negative Even');
+      //       } else {
+      //         console.log('Negative Odd')
+      //       }
+      //     }
+      //   }
+      // }
+
+      // DIAMOND
+      n = 7;
+      spaceCount = n;
+      temp = 0;
+
+      for(i = 0; i <= n*2 -1; i++) {
+        for(spaces = 0; spaces <= spaceCount-i; spaces++) {
+          document.write(' &nbsp;');
+        }
+        for(j = 0; j <= i+temp; j++) {
+          document.write('* &nbsp;');
+        }
+        document.writeln('<br>');
+        if(i>=7) {
+          spaceCount-i
+        }
+      }
+
+
+    </script>
+  </body>
+</htmlc
