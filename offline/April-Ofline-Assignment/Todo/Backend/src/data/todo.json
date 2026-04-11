@@ -1,0 +1,34 @@
+{
+  "allTodos": [
+    {
+      "username": "Prudvi",
+      "todos": [
+        {
+          "id": 1775892440966,
+          "task": "Goto Market",
+          "completed": false
+        },
+        {
+          "id": 1775893153636,
+          "task": "Goto Heaven",
+          "completed": false
+        },
+        {
+          "id": 1775893163830,
+          "task": "Goto Goa",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "username": "Ravi",
+      "todos": [
+        {
+          "id": 1775893194705,
+          "task": "Goto Goa",
+          "completed": false
+        }
+      ]
+    }
+  ]
+}
