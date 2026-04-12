@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Prep — My Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f11;
+    --bg2: #17171b;
+    --bg3: #1e1e24;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0efe8;
+    --muted: #8a8a8a;
+    --hr-color: #3ecfb2;
+    --apt-color: #a78bfa;
+    --code-color: #f97316;
+    --review-color: #60a5fa;
+    --done-bg: rgba(62,207,178,0.12);
+    --done-border: rgba(62,207,178,0.4);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 32px 40px 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+  }
+  .header-left h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .header-left p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 2px;
+    font-family: 'DM Mono', monospace;
+  }
+  .progress-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .overall-badge {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .overall-badge span {
+    color: var(--hr-color);
+    font-weight: 500;
+  }
+  .progress-bar-wrap {
+    width: 180px;
+    height: 4px;
+    background: var(--bg3);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--hr-color), var(--apt-color));
+    border-radius: 100px;
+    transition: width 0.5s ease;
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 48px 0 20px;
+  }
+  .section-label:first-child { margin-top: 0; }
+  .section-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-label h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .section-label .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 100px;
+    border: 1px solid;
+    opacity: 0.7;
+    margin-left: auto;
+  }
+
+  /* ── TOPIC CARD ── */
+  .topic-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .topic-card.done {
+    background: var(--done-bg);
+    border-color: var(--done-border);
+  }
+  .topic-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .topic-header:hover { background: rgba(255,255,255,0.02); }
+  .check-btn {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 1.5px solid var(--muted);
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    color: transparent;
+    font-size: 13px;
+  }
+  .check-btn:hover { border-color: var(--text); }
+  .done .check-btn {
+    background: var(--hr-color);
+    border-color: var(--hr-color);
+    color: #0f0f11;
+  }
+  .topic-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    flex: 1;
+  }
+  .done .topic-title { opacity: 0.6; text-decoration: line-through; }
+  .expand-icon {
+    color: var(--muted);
+    font-size: 18px;
+    transition: transform 0.3s;
+    font-family: 'DM Mono', monospace;
+  }
+  .topic-card.open .expand-icon { transform: rotate(45deg); }
+  .topic-body {
+    display: none;
+    padding: 0 20px 20px 56px;
+    border-top: 1px solid var(--border);
+  }
+  .topic-card.open .topic-body { display: block; }
+  .topic-body h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    margin: 16px 0 8px;
+  }
+  .topic-body p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.75;
+    margin-bottom: 8px;
+  }
+  .topic-body p strong { color: var(--text); font-weight: 500; }
+  .tip-box {
+    background: var(--bg3);
+    border-left: 3px solid;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+  .tip-box strong { font-family: 'DM Sans', sans-serif; color: var(--text); font-weight: 500; }
+  .practice-list {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .practice-list li {
+    font-size: 14px;
+    color: var(--muted);
+    padding: 5px 0;
+    padding-left: 18px;
+    position: relative;
+  }
+  .practice-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+  }
+  .practice-list li strong { color: var(--text); }
+
+  /* ── NOTES ── */
+  .notes-area {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    resize: vertical;
+    min-height: 70px;
+    margin-top: 12px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .notes-area:focus { border-color: rgba(255,255,255,0.2); }
+  .notes-area::placeholder { color: var(--muted); }
+
+  /* ── MISTAKES LOG ── */
+  .mistakes-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-top: 48px;
+  }
+  .mistakes-section h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mistake-entry {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .mistake-entry input {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 14px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+  }
+  .mistake-entry input:focus { border-color: rgba(255,255,255,0.2); }
+  .add-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 18px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .add-btn:hover { background: rgba(255,255,255,0.07); }
+  .mistakes-list { list-style: none; margin-top: 12px; }
+  .mistakes-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .mistakes-list li:last-child { border-bottom: none; }
+  .del-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    flex-shrink: 0;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .del-btn:hover { opacity: 1; }
+  .mistake-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+
+  /* ── SECTION PROGRESS PILLS ── */
+  .section-progress {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .progress-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 4px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  /* ── FOOTER ── */
+  .congrats-banner {
+    display: none;
+    background: linear-gradient(135deg, rgba(62,207,178,0.15), rgba(167,139,250,0.15));
+    border: 1px solid rgba(62,207,178,0.3);
+    border-radius: 14px;
+    padding: 28px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .congrats-banner h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .congrats-banner p { color: var(--muted); font-size: 14px; }
+  .congrats-banner.show { display: block; }
+
+  @media (max-width: 600px) {
+    header { padding: 20px 16px 16px; }
+    main { padding: 28px 12px 60px; }
+    .topic-body { padding-left: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>Interview Prep Tracker</h1>
+    <p id="date-display">Loading...</p>
+  </div>
+  <div class="progress-header">
+    <div class="overall-badge">Overall: <span id="pct-text">0%</span></div>
+    <div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:4px;text-align:right;font-family:'DM Mono',monospace"><span id="done-count">0</span>/<span id="total-count">0</span> topics</div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="main-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══ SECTION 1: HR ═══ -->
+  <div class="section-label">
+    <div class="section-dot" style="background:var(--hr-color)"></div>
+    <h2 style="color:var(--hr-color)">① HR Round</h2>
+    <div class="section-tag" style="color:var(--hr-color);border-color:var(--hr-color)">SECTION 1</div>
+  </div>
+
+  <div id="card-hr1" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('hr1')">
+      <button class="check-btn" onclick="toggleDone('hr1',event)">✓</button>
+      <span class="topic-title">Tell me about yourself</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>This is the <strong>most important HR question</strong>. It's your opening statement — sets the tone. Most students ramble. You must be crisp, confident, and structured.</p>
+      <div class="tip-box" style="border-color:var(--hr-color)">
+        <strong>The 3-part formula:</strong><br>
+        1. Who you are (name, college, branch, year)<br>
+        2. What you've done (projects, skills, achievements)<br>
+        3. Why you're here (why this company/role excites you)
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Write your answer first — keep it under <strong>90 seconds</strong></li>
+        <li>Record yourself speaking and listen back</li>
+        <li>Practice in front of a mirror until it feels natural</li>
+        <li>Mention 1 relevant project or skill you're proud of</li>
+      </ul>
+      <h4>Your answer draft / notes</h4>
+      <textarea class="notes-area" placeholder="Write your 'tell me about yourself' answer here..." onchange="saveNote('hr1',this.value)" id="note-hr1"></textarea>
+    </div>
+  </div>
+
+  <div id="card-hr2" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('hr2')">
+      <button class="check-btn" onclick="toggleDone('hr2',event)">✓</button>
+      <span class="topic-title">Hobbies and interests</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Interviewers ask this to see your <strong>personality beyond academics</strong>. They want energy and authenticity. Never say "watching movies" or "listening to music" — everyone says that.</p>
+      <div class="tip-box" style="border-color:var(--hr-color)">
+        <strong>Golden rule:</strong> Pick a hobby you can talk about for 2 minutes without stopping. Relate it to skills — chess = strategic thinking, coding side projects = curiosity, reading = communication.
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Prepare <strong>2-3 genuine hobbies</strong> with a story or example for each</li>
+        <li>Practice linking each hobby to a skill employers value</li>
+        <li>Be ready for follow-up: <em>"What did you last read?"</em> or <em>"Tell me more"</em></li>
+      </ul>
+      <h4>Your hobbies + stories</h4>
+      <textarea class="notes-area" placeholder="List your hobbies and a 1-2 line story for each..." onchange="saveNote('hr2',this.value)" id="note-hr2"></textarea>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 2: APTITUDE ═══ -->
+  <div class="section-label">
+    <div class="section-dot" style="background:var(--apt-color)"></div>
+    <h2 style="color:var(--apt-color)">② Aptitude</h2>
+    <div class="section-tag" style="color:var(--apt-color);border-color:var(--apt-color)">SECTION 2</div>
+  </div>
+
+  <div id="card-apt1" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('apt1')">
+      <button class="check-btn" onclick="toggleDone('apt1',event)">✓</button>
+      <span class="topic-title">Arithmetic — speed and accuracy</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Percentages, profit/loss, ratios, time-speed-distance, averages. These appear in every aptitude test. Your sir wants you to solve these <strong>fast and without calculator</strong>.</p>
+      <div class="tip-box" style="border-color:var(--apt-color)">
+        <strong>Key trick:</strong> Learn multiplication tables up to 25, and percentage-fraction equivalents (1/8 = 12.5%, 1/6 = 16.67%, etc.). This cuts solving time by half.
+      </div>
+      <h4>Daily practice plan</h4>
+      <ul class="practice-list">
+        <li>Solve <strong>10 arithmetic questions</strong> daily with a timer</li>
+        <li>Topics: percentages → profit/loss → time-speed-distance → averages</li>
+        <li>Target: each question under 90 seconds</li>
+        <li>Use: IndiaBIX or Freshersworld for free question banks</li>
+      </ul>
+      <h4>Notes & formulas I need to remember</h4>
+      <textarea class="notes-area" placeholder="Write shortcuts and formulas you want to remember..." onchange="saveNote('apt1',this.value)" id="note-apt1"></textarea>
+    </div>
+  </div>
+
+  <div id="card-apt2" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('apt2')">
+      <button class="check-btn" onclick="toggleDone('apt2',event)">✓</button>
+      <span class="topic-title">Logical reasoning — patterns and sequences</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Number series, letter patterns, blood relations, directions, coding-decoding. These test your <strong>ability to spot patterns quickly</strong>. There is always a hidden rule — find it.</p>
+      <div class="tip-box" style="border-color:var(--apt-color)">
+        <strong>Approach for series:</strong> Always check — difference, ratio, squares, cubes, and alternating patterns. If first attempt fails, try applying these in order.
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Do <strong>5 series + 5 coding-decoding</strong> questions daily</li>
+        <li>Practice blood relation and direction problems once per week</li>
+        <li>Time yourself: each question max 2 minutes</li>
+      </ul>
+      <textarea class="notes-area" placeholder="Patterns or rules you discovered while practicing..." onchange="saveNote('apt2',this.value)" id="note-apt2"></textarea>
+    </div>
+  </div>
+
+  <div id="card-apt3" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('apt3')">
+      <button class="check-btn" onclick="toggleDone('apt3',event)">✓</button>
+      <span class="topic-title">Clock problems — time → angle</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Given a time like 3:27, find the angle between the hour and minute hands. Your sir specifically mentioned this — it's a very common aptitude question category.</p>
+      <div class="tip-box" style="border-color:var(--apt-color)">
+        <strong>The core formula:</strong><br>
+        Minute hand moves: 6° per minute<br>
+        Hour hand moves: 0.5° per minute<br>
+        Angle = |11/2 × M − 30 × H| where H = hour, M = minutes<br><br>
+        Example: 3:00 → |0 − 90| = <strong>90°</strong><br>
+        Example: 6:00 → |0 − 180| = <strong>180°</strong> (straight line)
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Solve <strong>at least 15 clock problems</strong> using the formula until it becomes automatic</li>
+        <li>Also practice: when are hands coincident? perpendicular? opposite?</li>
+        <li>Coincident: every 65.45 minutes (11 times in 12 hours)</li>
+      </ul>
+      <textarea class="notes-area" placeholder="Your clock problem practice log / solved examples..." onchange="saveNote('apt3',this.value)" id="note-apt3"></textarea>
+    </div>
+  </div>
+
+  <div id="card-apt4" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('apt4')">
+      <button class="check-btn" onclick="toggleDone('apt4',event)">✓</button>
+      <span class="topic-title">First thought approach (intuition first)</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Your sir wants you to <strong>think before picking up the pen</strong>. Write down what your first instinct says. Often your first thought is correct. This builds confidence and speed.</p>
+      <div class="tip-box" style="border-color:var(--apt-color)">
+        <strong>How to practice:</strong> Read the question → close eyes for 3 seconds → write what feels right → then verify. Train your gut. It will become reliable.
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>For each practice question: <strong>write your first thought first</strong>, then solve properly</li>
+        <li>Track how often your first thought was right — it'll improve over time</li>
+        <li>Great for MCQ tests where time is limited</li>
+      </ul>
+      <textarea class="notes-area" placeholder="Track how your first-thought accuracy is improving..." onchange="saveNote('apt4',this.value)" id="note-apt4"></textarea>
+    </div>
+  </div>
+
+  <div id="card-apt5" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('apt5')">
+      <button class="check-btn" onclick="toggleDone('apt5',event)">✓</button>
+      <span class="topic-title">Puzzles — Ants problem and no-formula problems</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>The Ants problem: <em>N ants on a pole, some going left, some right — how many fall off? How long does it take?</em> Key insight: <strong>when two ants meet, they turn around — but it's equivalent to them passing through each other</strong>. This is a classic "think, don't calculate" problem.</p>
+      <div class="tip-box" style="border-color:var(--apt-color)">
+        <strong>The "ants on a pole" trick:</strong><br>
+        The time = the maximum distance any ant must travel to reach an end.<br>
+        You don't need to track individual ants — just track how many ants end up at each side.
+      </div>
+      <h4>Other classic no-formula puzzles to practice</h4>
+      <ul class="practice-list">
+        <li><strong>Bridge and torch problem</strong> — 4 people, different speeds, one torch</li>
+        <li><strong>Egg drop problem</strong> — minimum tries to find the critical floor</li>
+        <li><strong>Water jug problem</strong> — measure exact amount with odd-sized jugs</li>
+        <li><strong>Weighing balance problems</strong> — find the odd coin in minimum weighings</li>
+      </ul>
+      <textarea class="notes-area" placeholder="Puzzles you solved and the key insight you found..." onchange="saveNote('apt5',this.value)" id="note-apt5"></textarea>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 3: CODING ═══ -->
+  <div class="section-label">
+    <div class="section-dot" style="background:var(--code-color)"></div>
+    <h2 style="color:var(--code-color)">③ Coding Round</h2>
+    <div class="section-tag" style="color:var(--code-color);border-color:var(--code-color)">SECTION 3 — Java & Python</div>
+  </div>
+
+  <div id="card-c1" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('c1')">
+      <button class="check-btn" onclick="toggleDone('c1',event)">✓</button>
+      <span class="topic-title">Pattern programs</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Stars, numbers, pyramids, diamonds printed using loops. These test your <strong>loop logic and nested iteration understanding</strong>. Every fresher interview has at least one.</p>
+      <div class="tip-box" style="border-color:var(--code-color)">
+        <strong>Think in 3 parts:</strong><br>
+        1. How many rows? → outer loop (i)<br>
+        2. How many spaces? → inner loop for spaces<br>
+        3. How many symbols? → inner loop for stars<br>
+        Relation between i and number of stars = the pattern rule.
+      </div>
+      <h4>Must-practice patterns</h4>
+      <ul class="practice-list">
+        <li><strong>Right triangle</strong> (stars increasing left to right)</li>
+        <li><strong>Inverted triangle</strong></li>
+        <li><strong>Pyramid / Diamond</strong> (spaces + stars, symmetric)</li>
+        <li><strong>Number pattern</strong> (Pascal's triangle)</li>
+        <li><strong>Hollow square / hollow diamond</strong></li>
+      </ul>
+      <textarea class="notes-area" placeholder="Patterns you solved. Note which ones were tricky..." onchange="saveNote('c1',this.value)" id="note-c1"></textarea>
+    </div>
+  </div>
+
+  <div id="card-c2" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('c2')">
+      <button class="check-btn" onclick="toggleDone('c2',event)">✓</button>
+      <span class="topic-title">Arrays — set operations (union, intersection)</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Given two arrays, find their union (all unique elements from both) and intersection (only common elements). Your sir wants you to code this <strong>from scratch, without using built-in set libraries blindly</strong>.</p>
+      <div class="tip-box" style="border-color:var(--code-color)">
+        <strong>Two approaches to know:</strong><br>
+        1. <em>Brute force</em>: nested loops, O(n²) — simple but slow<br>
+        2. <em>Using HashSet</em>: O(n) — fast, preferred in interviews<br>
+        Know both. Explain which you're using and why.
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Code union and intersection in <strong>Java first, then Python</strong></li>
+        <li>Handle duplicates: union should not repeat elements</li>
+        <li>Also practice: <strong>difference</strong> of two arrays (A - B)</li>
+        <li>Bonus: sort both arrays and use two-pointer method</li>
+      </ul>
+      <textarea class="notes-area" placeholder="Paste your code snippets or notes on approaches..." onchange="saveNote('c2',this.value)" id="note-c2"></textarea>
+    </div>
+  </div>
+
+  <div id="card-c3" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('c3')">
+      <button class="check-btn" onclick="toggleDone('c3',event)">✓</button>
+      <span class="topic-title">Closest of two numbers</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Given an array and a target value, find the element closest to the target. This tests your understanding of <strong>absolute difference, sorting, and binary search</strong>.</p>
+      <div class="tip-box" style="border-color:var(--code-color)">
+        <strong>3 approaches — know all:</strong><br>
+        1. Linear scan: track min |arr[i] - target|, O(n)<br>
+        2. Sort + binary search: find insertion point, check neighbors, O(n log n)<br>
+        3. For two arrays: sort one, binary search for each element of other
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Solve for a single array first → then extend to two arrays</li>
+        <li>Handle <strong>tie case</strong>: if two elements are equally close, return the smaller one</li>
+        <li>Code in both Java and Python</li>
+      </ul>
+      <textarea class="notes-area" placeholder="Your approach, edge cases found, code notes..." onchange="saveNote('c3',this.value)" id="note-c3"></textarea>
+    </div>
+  </div>
+
+  <div id="card-c4" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('c4')">
+      <button class="check-btn" onclick="toggleDone('c4',event)">✓</button>
+      <span class="topic-title">HCF without built-in functions</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Find Highest Common Factor (GCD) of two numbers by writing the logic yourself — <strong>no math.gcd(), no library calls</strong>. Your sir wants to see you implement the algorithm.</p>
+      <div class="tip-box" style="border-color:var(--code-color)">
+        <strong>Euclidean Algorithm (must know):</strong><br>
+        <code>HCF(a, b) = HCF(b, a % b) until b = 0</code><br>
+        Example: HCF(48, 18) → HCF(18, 12) → HCF(12, 6) → HCF(6, 0) = <strong>6</strong><br><br>
+        LCM(a, b) = (a × b) / HCF(a, b)
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Write iterative version of Euclidean algorithm</li>
+        <li>Write recursive version of same</li>
+        <li>Extend to find HCF of an array of numbers</li>
+        <li>Code LCM using your HCF function</li>
+      </ul>
+      <textarea class="notes-area" placeholder="Your HCF code (Java + Python) and test cases..." onchange="saveNote('c4',this.value)" id="note-c4"></textarea>
+    </div>
+  </div>
+
+  <div id="card-c5" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('c5')">
+      <button class="check-btn" onclick="toggleDone('c5',event)">✓</button>
+      <span class="topic-title">Variable naming conventions</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Your sir is teaching you to <strong>write professional code</strong>, not just correct code. Variable names are the first thing an interviewer judges when reading your code.</p>
+      <div class="tip-box" style="border-color:var(--code-color)">
+        <strong>Rules to follow:</strong><br>
+        Java: camelCase → <code>studentCount</code>, <code>maxValue</code><br>
+        Python: snake_case → <code>student_count</code>, <code>max_value</code><br>
+        Constants: ALL_CAPS → <code>MAX_SIZE = 100</code><br>
+        NEVER use: <code>a</code>, <code>x1</code>, <code>temp2</code>, <code>abc</code>
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Go back to your previous programs and <strong>rename all bad variables</strong></li>
+        <li>From now on: every variable name must describe what it stores</li>
+        <li>Short is ok — but descriptive: <code>sum</code> is fine, <code>s</code> is not</li>
+      </ul>
+      <textarea class="notes-area" placeholder="Examples of bad names you fixed, and rules you follow..." onchange="saveNote('c5',this.value)" id="note-c5"></textarea>
+    </div>
+  </div>
+
+  <div id="card-c6" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('c6')">
+      <button class="check-btn" onclick="toggleDone('c6',event)">✓</button>
+      <span class="topic-title">How to reduce conditionals (clean code)</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>Instead of stacking 10 <code>if-else</code> blocks, write smarter code. Interviewers love candidates who write <strong>lean, readable logic</strong>. This shows maturity as a programmer.</p>
+      <div class="tip-box" style="border-color:var(--code-color)">
+        <strong>Techniques to reduce if-else:</strong><br>
+        1. Use <strong>ternary</strong>: <code>max = a &gt; b ? a : b</code><br>
+        2. Use <strong>dictionary/Map</strong> for condition → action mapping<br>
+        3. Use <strong>early return</strong>: handle edge cases first and return, keep main logic clean<br>
+        4. Use <strong>Math.max / Math.min</strong> instead of if-else comparisons<br>
+        5. Merge conditions with <strong>&& and ||</strong> logically
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Take any old program with 5+ if-else blocks → rewrite with fewer</li>
+        <li>Practice writing <strong>grade calculator</strong> without if-else chains (use dict/map)</li>
+        <li>Practice <strong>FizzBuzz</strong> in multiple ways — try without any if statements</li>
+      </ul>
+      <textarea class="notes-area" placeholder="Techniques you applied and before/after examples..." onchange="saveNote('c6',this.value)" id="note-c6"></textarea>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 4: REVIEW HABITS ═══ -->
+  <div class="section-label">
+    <div class="section-dot" style="background:var(--review-color)"></div>
+    <h2 style="color:var(--review-color)">④ Review Habits</h2>
+    <div class="section-tag" style="color:var(--review-color);border-color:var(--review-color)">SECTION 4</div>
+  </div>
+
+  <div id="card-r1" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('r1')">
+      <button class="check-btn" onclick="toggleDone('r1',event)">✓</button>
+      <span class="topic-title">Do you have any questions? (ask back)</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>At the end of every interview, you'll be asked: <em>"Do you have any questions for us?"</em> Saying "No" is a missed opportunity. Your sir wants you to <strong>always have 2 smart questions ready</strong>.</p>
+      <div class="tip-box" style="border-color:var(--review-color)">
+        <strong>Good questions to ask:</strong><br>
+        • "What does a typical day look like for someone in this role?"<br>
+        • "What skills does your top performer in this team have?"<br>
+        • "What are the learning and growth opportunities here?"<br>
+        Never ask about salary in the first round.
+      </div>
+      <textarea class="notes-area" placeholder="Write your 2-3 prepared questions for the interviewer..." onchange="saveNote('r1',this.value)" id="note-r1"></textarea>
+    </div>
+  </div>
+
+  <div id="card-r2" class="topic-card">
+    <div class="topic-header" onclick="toggleCard('r2')">
+      <button class="check-btn" onclick="toggleDone('r2',event)">✓</button>
+      <span class="topic-title">After each session: what mistakes did you make?</span>
+      <span class="expand-icon">+</span>
+    </div>
+    <div class="topic-body">
+      <h4>What your sir means</h4>
+      <p>This is the <strong>most important study habit</strong>. Your sir ends with this for a reason — improvement only comes from knowing where you went wrong. Not just moving on.</p>
+      <div class="tip-box" style="border-color:var(--review-color)">
+        <strong>The 3-question review after every practice session:</strong><br>
+        1. What did I get wrong? Write it down.<br>
+        2. Why did I get it wrong? (Concept gap? Careless? Time pressure?)<br>
+        3. How will I avoid this next time?
+      </div>
+      <h4>Practice actions</h4>
+      <ul class="practice-list">
+        <li>Spend <strong>10 minutes after every session</strong> just on review</li>
+        <li>Log your mistakes in the section below — it will become your personal weakness tracker</li>
+        <li>Revisit your mistake log every Sunday</li>
+      </ul>
+      <textarea class="notes-area" placeholder="General review notes from your recent sessions..." onchange="saveNote('r2',this.value)" id="note-r2"></textarea>
+    </div>
+  </div>
+
+  <!-- ═══ MISTAKES LOG ═══ -->
+  <div class="mistakes-section">
+    <h3>
+      <span style="font-size:18px">📋</span>
+      Mistakes log
+      <span style="font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;font-weight:400;margin-left:auto">Review every Sunday</span>
+    </h3>
+    <div class="mistake-entry">
+      <input type="text" id="mistake-input" placeholder="What mistake did you make today? Be specific." />
+      <button class="add-btn" onclick="addMistake()">Log it</button>
+    </div>
+    <ul class="mistakes-list" id="mistakes-list"></ul>
+  </div>
+
+  <!-- Congrats -->
+  <div class="congrats-banner" id="congrats">
+    <h3>🎉 You've completed all topics!</h3>
+    <p>You're now ready. Go over your mistakes log one more time, and walk into that interview with confidence.</p>
+  </div>
+
+</main>
+
+<script>
+  // ── State ──
+  let state = JSON.parse(localStorage.getItem('prep_state') || '{}');
+  if (!state.done) state.done = {};
+  if (!state.notes) state.notes = {};
+  if (!state.mistakes) state.mistakes = [];
+
+  const ALL_CARDS = ['hr1','hr2','apt1','apt2','apt3','apt4','apt5','c1','c2','c3','c4','c5','c6','r1','r2'];
+
+  // ── Init ──
+  function init() {
+    document.getElementById('date-display').textContent = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    document.getElementById('total-count').textContent = ALL_CARDS.length;
+    ALL_CARDS.forEach(id => {
+      const card = document.getElementById('card-'+id);
+      if (state.done[id]) card.classList.add('done');
+      const noteEl = document.getElementById('note-'+id);
+      if (noteEl && state.notes[id]) noteEl.value = state.notes[id];
+    });
+    renderMistakes();
+    updateProgress();
+  }
+
+  function save() { localStorage.setItem('prep_state', JSON.stringify(state)); }
+
+  // ── Toggle card open ──
+  function toggleCard(id) {
+    const card = document.getElementById('card-'+id);
+    card.classList.toggle('open');
+  }
+
+  // ── Toggle done ──
+  function toggleDone(id, e) {
+    e.stopPropagation();
+    state.done[id] = !state.done[id];
+    const card = document.getElementById('card-'+id);
+    card.classList.toggle('done', state.done[id]);
+    save();
+    updateProgress();
+  }
+
+  // ── Notes ──
+  function saveNote(id, val) {
+    state.notes[id] = val;
+    save();
+  }
+
+  // ── Progress ──
+  function updateProgress() {
+    const done = ALL_CARDS.filter(id => state.done[id]).length;
+    const total = ALL_CARDS.length;
+    const pct = Math.round((done/total)*100);
+    document.getElementById('done-count').textContent = done;
+    document.getElementById('pct-text').textContent = pct + '%';
+    document.getElementById('main-bar').style.width = pct + '%';
+    document.getElementById('congrats').classList.toggle('show', done === total);
+  }
+
+  // ── Mistakes ──
+  function addMistake() {
+    const input = document.getElementById('mistake-input');
+    const text = input.value.trim();
+    if (!text) return;
+    state.mistakes.unshift({ text, date: new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short'}) });
+    input.value = '';
+    save();
+    renderMistakes();
+  }
+
+  document.getElementById('mistake-input').addEventListener('keydown', e => { if (e.key === 'Enter') addMistake(); });
+
+  function deleteMistake(i) {
+    state.mistakes.splice(i, 1);
+    save();
+    renderMistakes();
+  }
+
+  function renderMistakes() {
+    const ul = document.getElementById('mistakes-list');
+    ul.innerHTML = state.mistakes.length === 0
+      ? '<li style="color:var(--muted);font-size:13px;font-family:\'DM Mono\',monospace">No mistakes logged yet. Start practicing and log what trips you up.</li>'
+      : state.mistakes.map((m, i) => `
+        <li>
+          <button class="del-btn" onclick="deleteMistake(${i})">×</button>
+          <div style="flex:1">${m.text}</div>
+          <span class="mistake-date">${m.date}</span>
+        </li>`).join('');
+  }
+
+  init();
+</script>
+</body>
+</html>

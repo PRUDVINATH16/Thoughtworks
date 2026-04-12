@@ -1,7 +1,6 @@
 import authRoutes from './routes/auth.route.js';
 import todoRoutes from './routes/todo.route.js';
 import express from 'express';
-import bodyParser from 'body-parser';
 
 const app = express();
 
