@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo</title>
+</head>
+<body>
+  <div class="todo-app">
+    <h2>Todo App</h2>
+    <div class="form-label">
+      <label for="todo">Todo</label>
+      <input type="text" id="todo" placeholder="Enter your todo"/>
+    </div>
+    <button class="add-button">Add Todo</button>
+    <ul class="todo-list"></ul>
+  </div>
+  <script>
+    document.querySelector('.add-button').addEventListener('click', async () => {
+      let task = document.querySelector('#todo').value
+      const req = await fetch('http://localhost:3000/api/todo/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({task}),
+        credentials: 'include'
+      });
+
+      const res = await req.json();
+
+      if(res.OK) {
+        renderTodos(res.data);
+      } else {
+        alert('Unable to add todo. Try to login again.');
+
+      }
+    });
+
+    async function fetchTodos() {
+      const req = await fetch('http://localhost:3000/api/todo/todos', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      });
+
+      const res = await req.json();
+
+      if(res.OK) {
+        renderTodos(res.data);
+      } else {
+        console.log(res)
+        alert('Unable to fetch todos. Try to login again.');
+      }
+    }
+
+    function renderTodos(todos) {
+        const todoList = document.querySelector('.todo-list');
+      todoList.innerHTML = '';
+      todos.forEach(todo => {
+        const li = document.createElement('li');
+        li.innerText = todo.task;
+        todoList.appendChild(li);
+      });
+    }
+
+    fetchTodos();
+  </script>
+</body>
+</html>

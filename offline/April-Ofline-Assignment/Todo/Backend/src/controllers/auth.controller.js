@@ -27,6 +27,7 @@ Response Format:
 export const loginUser = (req, res) => {
 
   const username = req.body.username;
+  const password = req.body.password;
 
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const filePath = path.join(__dirname, '../data/user.json');
@@ -39,21 +40,36 @@ export const loginUser = (req, res) => {
 
     const usersObject = JSON.parse(data) || {};
 
-    let user = usersObject.users.find(user => user.username == username);
-    if (user)
+    let user = usersObject.users.find(user => (user.username == username && user.password == password));
+    if (user) {
+      console.log(req.sessionID);
+      res.cookie('session_id', req.sessionID, {
+        secure: false, // Set to true if using HTTPS
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+      });
+      res.cookie('username', username, {
+        secure: false, // Set to true if using HTTPS
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+      });
+      req.session.user = user;
       return respond(res, true, 200, user, 'Nothing serious');
+    }
+    else
+      return respond(res, false, 401, {}, 'Enter valid user details')
 
-    const newUser = { username }
+    // const newUser = { username }
 
-    usersObject.users.push(newUser);
+    // usersObject.users.push(newUser);
 
-    fs.writeFile(filePath, JSON.stringify(usersObject, null, 2), error => {
-      if (error) {
-        console.log(error);
-        return respond(res, false, 500, {}, 'Error saving user');
-      }
-      return respond(res, true, 201, newUser, 'User created');
-    });
+    // fs.writeFile(filePath, JSON.stringify(usersObject, null, 2), error => {
+    //   if (error) {
+    //     console.log(error);
+    //     return respond(res, false, 500, {}, 'Error saving user');
+    //   }
+    //   return respond(res, true, 201, newUser, 'User created');
+    // });
   });
 }
 

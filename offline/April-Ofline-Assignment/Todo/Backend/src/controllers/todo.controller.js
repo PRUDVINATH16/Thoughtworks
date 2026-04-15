@@ -25,7 +25,11 @@ Response: {
 */
 
 export async function addTodo(req, res) {
-  const username = req.body.username;
+  if(!req.session.user) {
+    return respond(res, false, 401, {}, 'Unauthorized user.');
+  }
+
+  const username = req.session.user.username;
   const todo = req.body.task;
 
   const newTodo = {
@@ -95,7 +99,10 @@ Response: {
 */
 
 export async function editTodo(req, res) {
-  const username = req.body.username;
+  if (!req.session.user) {
+    return respond(res, false, 401, {}, 'Unauthorized user.');
+  }
+  const username = req.session.user.username;
   const editedTodo = req.body.todo;
 
 
@@ -147,7 +154,10 @@ Response: {
 */
 
 export async function deleteTodo(req, res) {
-  const username = req.body.username;
+  if (!req.session.user) {
+    return respond(res, false, 401, {}, 'Unauthorized user.');
+  }
+  const username = req.session.user.username;
   const todoId = req.body.todoId;
 
   try {
@@ -192,7 +202,10 @@ Response: {
 */
 
 export async function getAllTodos(req, res) {
-  const username = req.query.username;
+  if (!req.session.user) {
+    return respond(res, false, 401, {}, 'Unauthorized user.');
+  }
+  const username = req.session.user.username;
 
   try {
     fs.readFile(filePath, 'utf-8', (error, data) => {
@@ -202,9 +215,7 @@ export async function getAllTodos(req, res) {
       }
       const { allTodos } = JSON.parse(data) || [];
       let user = allTodos.find(user => user.username == username);
-      console.log(user)
       if (user) {
-        console.log(user)
         return respond(res, true, 200, user.todos, 'Todos retrieved successfully.');
       }
       return respond(res, true, 200, [], 'No todos found for the user.');
